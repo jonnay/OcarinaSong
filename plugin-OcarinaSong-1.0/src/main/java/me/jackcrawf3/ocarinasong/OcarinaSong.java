@@ -40,7 +40,7 @@ public class OcarinaSong extends JavaPlugin {
     @Override
     public void onEnable()
     {
-
+        
         //Set up commands
         getCommand("ocarina").setExecutor(new OcarinaSongCommand(this,0));
         getServer().getPluginManager().registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Priority.Highest, this);
@@ -48,6 +48,7 @@ public class OcarinaSong extends JavaPlugin {
         getServer().getPluginManager().registerEvent(Event.Type.PLAYER_QUIT, playerListener, Priority.Highest, this);
         getServer().getPluginManager().registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Priority.Highest, this);
         getServer().getPluginManager().registerEvent(Event.Type.PLAYER_ITEM_HELD, playerListener, Priority.Highest, this);
+        System.out.println("OcarinaSong has initialized!");
         return;
     }
 
@@ -169,6 +170,7 @@ public class OcarinaSong extends JavaPlugin {
     public void onDisable()
     {
         StopAllOcarina();
+        System.out.println("OcarinaSong has stopped!");
         return;
     }
 }
