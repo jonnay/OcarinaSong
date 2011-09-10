@@ -1,0 +1,21 @@
+name: OcarinaSong
+version: 1.0
+description: Provides perks for voting for the server. For Outbreak-Gaming.
+author: Jackcrawf3
+main: me.jackcrawf3.ocarinasong.OcarinaSong
+
+permissions:
+    jack.ocarina:
+            default: op
+            description: Lets you play the Ocarina!
+    jack.ocarina.time:
+            default: op
+            description: Lets you play the Song of Time wtih effect!
+    jack.ocarina.storms:
+            default: op
+            description: Lets you play the Song of Storms; Change Weather!
+commands:
+    ocarina:
+        description: Take out your ocarina and play!
+        aliases: [ocarina, playsong]
+        usage: /ocarina or /ocarina <song>
