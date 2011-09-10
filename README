@@ -1,0 +1,12 @@
+OcarinaSong
+Plugin for Bukkit
+
+Allows players to use a LoZ-Style Ocarina by right clicking with an Ocarina (Brick), and then tapping Up/Down/Left/Right/Sneak 
+to play notes in the exact same fashion as LoZ
+
++All the classic LoZ songs are playable on it!
+
+To Do:
+ -Add Recognition for Songs
+ -Add more Permissions
+ -Finish and publish the first version
