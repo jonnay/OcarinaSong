@@ -32,8 +32,6 @@ private final OcarinaSong plugin;
 public Map<Player, Integer> YourId = new HashMap<Player, Integer>();
 public Map<Player, Location> MusicBoxBlockLocation = new HashMap<Player, Location>();
 public Map<Player, Material> WhatWasItBefore = new HashMap<Player, Material>();
-public Map<Player, Integer> LastNotes = new HashMap<Player, Integer>();
-public Map<String, Set> PlayersNotes = new HashMap<String, Set>();
 
 
     public OcarinaSongPlayerListener(OcarinaSong plugin) {

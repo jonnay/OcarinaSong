@@ -48,8 +48,8 @@ public class KeyCheck implements Runnable {
                     return;
         }}
 
-        
-                double angle = Math.atan2(-(currentLocation.getX() - initialLocation.getX()),currentLocation.getZ() - initialLocation.getZ())*180.0f/Math.PI;
+        //Score_Under's bosslike algorithm
+        double angle = Math.atan2(-(currentLocation.getX() - initialLocation.getX()),currentLocation.getZ() - initialLocation.getZ())*180.0f/Math.PI;
         int facing = (int) Math.round(((angle - player.getLocation().getYaw()) / 45.0f) % 8.0f);
         if(facing<0)facing+=8;
         
@@ -73,12 +73,6 @@ public class KeyCheck implements Runnable {
         return;
         
         
-        
-        
-        /*if (facing==0)plugin.hitUp(player);
-        if (facing==2)plugin.hitLeft(player);
-        if (facing==4)plugin.hitDown(player);
-        if (facing==6)plugin.hitRight(player);*/
         
         
         

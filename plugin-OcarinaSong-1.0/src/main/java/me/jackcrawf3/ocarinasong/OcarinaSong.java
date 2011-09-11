@@ -3,7 +3,9 @@ package me.jackcrawf3.ocarinasong;
 
 
 import java.lang.reflect.Array;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -36,6 +38,8 @@ public class OcarinaSong extends JavaPlugin {
     public Set<Player> musicians = new HashSet<Player>();
     public Server server;
     public NoteBlock noteblock;
+    public Map<Player,Map> PlayersNotes = new HashMap<Player,Map>();
+    
     
     @Override
     public void onEnable()
@@ -108,14 +112,64 @@ public class OcarinaSong extends JavaPlugin {
         return;
     }
     
+    public Note MakeNote(byte Bite)
+    {
+    Note Noddy = new Note(Bite);
     
+    return Noddy;
+    }
     
+    public void SongCheck(Player player, Map YourSong){
+    Map<Integer, Note> SongOfTime = new HashMap<Integer, Note>();
+    byte BiteNote;
+    BiteNote = 0x0F;
+    SongOfTime.put(1, MakeNote(BiteNote));
+    BiteNote = 0x08;
+    SongOfTime.put(2, MakeNote(BiteNote));
+    BiteNote = 0x0B;
+    SongOfTime.put(3, MakeNote(BiteNote));
+    BiteNote = 0x0F;
+    SongOfTime.put(4, MakeNote(BiteNote));
+    BiteNote = 0x08;
+    SongOfTime.put(5, MakeNote(BiteNote));
+    BiteNote = 0x0B;
+    SongOfTime.put(6, MakeNote(BiteNote));
+    if (SongOfTime== YourSong){
+    player.sendMessage("Played song of time!");
+    
+    }
+    
+    }
     
     
     public void PlayThatNote(Player player, Location location, Byte musicnote){
     for (Player thisplayer : Bukkit.getServer().getOnlinePlayers()) { //Send note to every player
         thisplayer.playNote(location, Instrument.PIANO, new Note(musicnote));
     }
+    
+    Map<Integer, Note> IndivNotes = PlayersNotes.get(player);
+    player.sendMessage("Test");
+    if (IndivNotes.get(6)!=null){
+            SongCheck(player, IndivNotes);
+        IndivNotes.clear();
+    }
+    else if (IndivNotes.get(1)!=null){
+    IndivNotes.put(1, new Note (musicnote));
+    }
+        else if (IndivNotes.get(2)!=null){
+    IndivNotes.put(2, new Note (musicnote));
+    }
+        else if (IndivNotes.get(3)!=null){
+    IndivNotes.put(3, new Note (musicnote));
+    }
+        else if (IndivNotes.get(4)!=null){
+    IndivNotes.put(4, new Note (musicnote));
+    }
+        else if (IndivNotes.get(5)!=null){
+    IndivNotes.put(5, new Note (musicnote));
+    }
+
+    PlayersNotes.put(player, IndivNotes);
     return; 
     }   
 
