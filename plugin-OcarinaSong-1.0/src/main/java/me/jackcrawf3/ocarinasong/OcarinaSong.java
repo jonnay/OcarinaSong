@@ -134,7 +134,7 @@ public class OcarinaSong extends JavaPlugin {
     SongOfTime.put(5, MakeNote(BiteNote));
     BiteNote = 0x0B;
     SongOfTime.put(6, MakeNote(BiteNote));
-    if (SongOfTime== YourSong){
+    if (SongOfTime.equals(YourSong)){
     player.sendMessage("Played song of time!");
     
     }
@@ -148,24 +148,23 @@ public class OcarinaSong extends JavaPlugin {
     }
     
     Map<Integer, Note> IndivNotes = PlayersNotes.get(player);
-    player.sendMessage("Test");
-    if (IndivNotes.get(6)!=null){
-            SongCheck(player, IndivNotes);
+    if (IndivNotes.keySet().size()==6){
+        SongCheck(player, IndivNotes);
         IndivNotes.clear();
     }
-    else if (IndivNotes.get(1)!=null){
+    else if (IndivNotes.keySet().size()==1){
     IndivNotes.put(1, new Note (musicnote));
     }
-        else if (IndivNotes.get(2)!=null){
+        else if (IndivNotes.keySet().size()==2){
     IndivNotes.put(2, new Note (musicnote));
     }
-        else if (IndivNotes.get(3)!=null){
+        else if (IndivNotes.keySet().size()==3){
     IndivNotes.put(3, new Note (musicnote));
     }
-        else if (IndivNotes.get(4)!=null){
+        else if (IndivNotes.keySet().size()==4){
     IndivNotes.put(4, new Note (musicnote));
     }
-        else if (IndivNotes.get(5)!=null){
+        else if (IndivNotes.keySet().size()==5){
     IndivNotes.put(5, new Note (musicnote));
     }
 
