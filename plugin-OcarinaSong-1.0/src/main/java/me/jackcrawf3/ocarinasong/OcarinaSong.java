@@ -116,31 +116,60 @@ public class OcarinaSong extends JavaPlugin {
     
     public boolean SongCheck(Player player, List YourSong){
         List SongOfTime = new LinkedList();
-        SongOfTime = new ArrayList();    
-        SongOfTime.add(0x0F);
-        SongOfTime.add(0x08);
-        SongOfTime.add(0x0B);
-        SongOfTime.add(0x0F);
-        SongOfTime.add(0x08);
-        SongOfTime.add(0x0B);
+        SongOfTime = new ArrayList();  
+        byte musicnote;
+        musicnote = 0x0F;
+        SongOfTime.add(musicnote);
+        musicnote = 0x08;
+        SongOfTime.add(musicnote);
+        musicnote = 0x0B;
+        SongOfTime.add(musicnote);
+        musicnote = 0x0F;
+        SongOfTime.add(musicnote);
+        musicnote = 0x08;
+        SongOfTime.add(musicnote);
+        musicnote = 0x0B;
+        SongOfTime.add(musicnote);
         List SongOfStorms = new LinkedList();
-        SongOfStorms = new ArrayList();    
-        SongOfStorms.add(0x08);
-        SongOfStorms.add(0x0B);
-        SongOfStorms.add(0x14);
-        SongOfStorms.add(0x08);
-        SongOfStorms.add(0x0B);
-        SongOfStorms.add(0x14);
+        SongOfStorms = new ArrayList();  
+        musicnote = 0x08;
+        SongOfStorms.add(musicnote);
+        musicnote = 0x0B;
+        SongOfStorms.add(musicnote);
+        musicnote = 0x14;
+        SongOfStorms.add(musicnote);
+        musicnote = 0x08;
+        SongOfStorms.add(musicnote);
+        musicnote = 0x0B;
+        SongOfStorms.add(musicnote);
+        musicnote = 0x14;
+        SongOfStorms.add(musicnote);
+        List SongOfHealing = new LinkedList();
+        SongOfHealing = new ArrayList();    
+        musicnote = 0x11;
+        SongOfHealing.add(musicnote);
+        musicnote = 0x0F;
+        SongOfHealing.add(musicnote);
+        musicnote = 0x0B;
+        SongOfHealing.add(musicnote);
+        musicnote = 0x11;
+        SongOfHealing.add(musicnote);
+        musicnote = 0x0F;
+        SongOfHealing.add(musicnote);
+        musicnote = 0x0B;
+        SongOfHealing.add(musicnote);
         
        
         List LastSix = new LinkedList();
         LastSix = new ArrayList();   
         
-        int thiscounter = 6;
-        while (thiscounter>0){
-        LastSix.add(YourSong.get(YourSong.size()-thiscounter));
-        thiscounter--;
-        }
+        LastSix.add(YourSong.get(YourSong.size()-6));
+        LastSix.add(YourSong.get(YourSong.size()-5));
+        LastSix.add(YourSong.get(YourSong.size()-4));
+        LastSix.add(YourSong.get(YourSong.size()-3));
+        LastSix.add(YourSong.get(YourSong.size()-2));
+        LastSix.add(YourSong.get(YourSong.size()-1));
+
             
         if (SongOfTime.equals(LastSix)){
             player.sendMessage(ChatColor.AQUA + "Played the " + ChatColor.GRAY + "Song of Time" + ChatColor.AQUA + "!");
@@ -150,6 +179,11 @@ public class OcarinaSong extends JavaPlugin {
         else if (SongOfStorms.equals(LastSix)){
             player.sendMessage(ChatColor.AQUA + "Played the " + ChatColor.GRAY + "Song of Storms" + ChatColor.AQUA + "!");
             this.playerListener.PlaySong("storms", player);
+            return true;
+        }
+        else if (SongOfHealing.equals(LastSix)){
+            player.sendMessage(ChatColor.AQUA + "Played the " + ChatColor.GRAY + "Song of Healing" + ChatColor.AQUA + "!");
+            this.playerListener.PlaySong("healing", player);
             return true;
         }
         return false;
@@ -186,11 +220,13 @@ public class OcarinaSong extends JavaPlugin {
     }   
 
     
-    public void listSongs(Player player){
+    public void listSongs(CommandSender sender){
     
-    player.sendMessage(ChatColor.AQUA + "Songs you can Play:");
-    player.sendMessage(ChatColor.GRAY + "Song of Storms: S V ^ S V ^");
-    player.sendMessage(ChatColor.GRAY + "Song of Time: > S V > S V");
+    sender.sendMessage(ChatColor.AQUA + "Songs you can Play:");
+    sender.sendMessage(ChatColor.GRAY + "Song of Storms:" + ChatColor.YELLOW + " S V ^ S V ^");
+    sender.sendMessage(ChatColor.GRAY + "Song of Time:" + ChatColor.YELLOW + " > S V > S V");
+    sender.sendMessage(ChatColor.GRAY + "Song of Healing:" + ChatColor.YELLOW + " < > V < > V");
+    return;
     }
     
     

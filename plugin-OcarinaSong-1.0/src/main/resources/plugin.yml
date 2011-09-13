@@ -14,8 +14,11 @@ permissions:
     jack.ocarina.storms:
             default: op
             description: Lets you play the Song of Storms; Change Weather!
+    jack.ocarina.healing:
+            default: op
+            description: Makes it so that playing the Song of Healing will gradually heal you!
 commands:
     ocarina:
-        description: Take out your ocarina and play!
-        aliases: [ocarina, playsong]
-        usage: /ocarina or /ocarina <song>
+        description: Checks the list of songs playable on your ocarina!
+        aliases: [ocarina, songs]
+        usage: /ocarina

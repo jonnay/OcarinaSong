@@ -54,17 +54,21 @@ public Server server;
     
     
     public void PlaySong(String song, Player player){
-        if (song=="time"){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfTime(player, plugin, 0),3);
+        if (song=="time"){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfTime(player, plugin, 0),4);
                 if (player.hasPermission("jack.ocarina.time")){
                     plugin.getServer().broadcastMessage(ChatColor.GREEN + player.getName() + " has changed the time of day!");
                     player.getWorld().setTime(player.getWorld().getTime()+12000);
                  }
         }
-        else if (song=="storms"){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfStorms(player, plugin, 0),3);
+        else if (song=="storms"){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfStorms(player, plugin, 0),4);
             if (player.hasPermission("jack.ocarina.storms")){
                 plugin.getServer().broadcastMessage(ChatColor.GREEN + player.getName() + " has changed the weather!");
                 if(player.getWorld().hasStorm()==true){ player.getWorld().setStorm(false);}
                 else{ player.getWorld().setStorm(true);}
+            }
+        }
+        else if (song=="healing"){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfHealing(player, plugin, 0),4);
+            if (player.hasPermission("jack.ocarina.healing")){
             }
         }
         
