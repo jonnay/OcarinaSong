@@ -6,7 +6,7 @@ to play notes in the exact same fashion as LoZ
 
 +All the classic LoZ songs will be playable on it
 
-(In the list so far: Song of Time, Song of Storms)
+(In the list so far: Song of Time, Song of Storms, Song of Healing)
 
 To Do:
 -Add more songs/permissions
@@ -17,3 +17,4 @@ Permission Nodes:
 jack.ocarina - Allows user to play Ocarina
 jack.ocarina.time - Allows user to change time via Song of Time
 jack.ocarina.storms - Allows user to change weather via Song of Storms
+jack.ocarina.healing - Allows user to change weather via Song of Storms
