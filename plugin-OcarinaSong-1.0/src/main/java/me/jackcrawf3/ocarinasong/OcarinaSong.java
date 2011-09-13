@@ -3,8 +3,11 @@ package me.jackcrawf3.ocarinasong;
 
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -28,6 +31,7 @@ import org.bukkit.block.NoteBlock;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import org.bukkit.event.player.PlayerListener;
+import org.bukkit.plugin.Plugin;
 
 /**
  *
@@ -38,8 +42,8 @@ public class OcarinaSong extends JavaPlugin {
     public Set<Player> musicians = new HashSet<Player>();
     public Server server;
     public NoteBlock noteblock;
-    public Map<Player,Map> PlayersNotes = new HashMap<Player,Map>();
-    
+    public Map<Player,List> PlayersNotes = new HashMap<Player,List>();
+    public Plugin plugin = this;
     
     @Override
     public void onEnable()
@@ -119,59 +123,123 @@ public class OcarinaSong extends JavaPlugin {
     return Noddy;
     }
     
-    public void SongCheck(Player player, Map YourSong){
-    Map<Integer, Note> SongOfTime = new HashMap<Integer, Note>();
-    byte BiteNote;
-    BiteNote = 0x0F;
-    SongOfTime.put(1, MakeNote(BiteNote));
-    BiteNote = 0x08;
-    SongOfTime.put(2, MakeNote(BiteNote));
-    BiteNote = 0x0B;
-    SongOfTime.put(3, MakeNote(BiteNote));
-    BiteNote = 0x0F;
-    SongOfTime.put(4, MakeNote(BiteNote));
-    BiteNote = 0x08;
-    SongOfTime.put(5, MakeNote(BiteNote));
-    BiteNote = 0x0B;
-    SongOfTime.put(6, MakeNote(BiteNote));
-    if (SongOfTime.equals(YourSong)){
-    player.sendMessage("Played song of time!");
-    
+    public boolean SongCheck(Player player, List YourSong){
+        List SongOfTime = new LinkedList();
+        SongOfTime = new ArrayList();    
+        byte ByteNote;
+        ByteNote = 0x0F;
+        SongOfTime.add(ByteNote);
+        ByteNote = 0x08;
+        SongOfTime.add(ByteNote);
+        ByteNote = 0x0B;
+        SongOfTime.add(ByteNote);
+        ByteNote = 0x0F;
+        SongOfTime.add(ByteNote);
+        ByteNote = 0x08;
+        SongOfTime.add(ByteNote);
+        ByteNote = 0x0B;
+        SongOfTime.add(ByteNote);
+
+        
+        
+        List SongOfStorms = new LinkedList();
+        SongOfStorms = new ArrayList();    
+        ByteNote = 0x08;
+        SongOfStorms.add(ByteNote);
+        ByteNote = 0x0B;
+        SongOfStorms.add(ByteNote);
+        ByteNote = 0x014;
+        SongOfStorms.add(ByteNote);
+        ByteNote = 0x08;
+        SongOfStorms.add(ByteNote);
+        ByteNote = 0x0B;
+        SongOfStorms.add(ByteNote);
+        ByteNote = 0x014;
+        SongOfStorms.add(ByteNote);
+        
+        
+        
+        
+        
+        
+
+        List LastSix = new LinkedList();
+        LastSix = new ArrayList();   
+
+        LastSix.add(YourSong.get(YourSong.size()-6));
+        LastSix.add(YourSong.get(YourSong.size()-5));
+        LastSix.add(YourSong.get(YourSong.size()-4));
+        LastSix.add(YourSong.get(YourSong.size()-3));
+        LastSix.add(YourSong.get(YourSong.size()-2));
+        LastSix.add(YourSong.get(YourSong.size()-1));
+        
+            
+        if (SongOfTime.equals(LastSix)){
+            player.sendMessage(ChatColor.AQUA + "Played the " + ChatColor.GRAY + "Song of Time" + ChatColor.AQUA + "!");
+            this.playerListener.PlaySong("time", player);
+            return true;
+        }
+        else if (SongOfStorms.equals(LastSix)){
+            player.sendMessage(ChatColor.AQUA + "Played the " + ChatColor.GRAY + "Song of Storms" + ChatColor.AQUA + "!");
+            this.playerListener.PlaySong("storms", player);
+            return true;
+        }
+        
+        
+        
+        
+        
+        
+        
+        return false;
     }
     
+   
+    
+    
+    public boolean hashcode(){
+    
+    
+    return false;
     }
+    
     
     
     public void PlayThatNote(Player player, Location location, Byte musicnote){
     for (Player thisplayer : Bukkit.getServer().getOnlinePlayers()) { //Send note to every player
         thisplayer.playNote(location, Instrument.PIANO, new Note(musicnote));
     }
+    List IndivNotes = new LinkedList();
+    IndivNotes = new ArrayList();     
     
-    Map<Integer, Note> IndivNotes = PlayersNotes.get(player);
-    if (IndivNotes.keySet().size()==6){
-        SongCheck(player, IndivNotes);
-        IndivNotes.clear();
+     if (PlayersNotes.containsKey(player)){
+       IndivNotes = PlayersNotes.get(player);
     }
-    else if (IndivNotes.keySet().size()==1){
-    IndivNotes.put(1, new Note (musicnote));
-    }
-        else if (IndivNotes.keySet().size()==2){
-    IndivNotes.put(2, new Note (musicnote));
-    }
-        else if (IndivNotes.keySet().size()==3){
-    IndivNotes.put(3, new Note (musicnote));
-    }
-        else if (IndivNotes.keySet().size()==4){
-    IndivNotes.put(4, new Note (musicnote));
-    }
-        else if (IndivNotes.keySet().size()==5){
-    IndivNotes.put(5, new Note (musicnote));
-    }
-
-    PlayersNotes.put(player, IndivNotes);
-    return; 
+     
+        boolean success = false;
+        IndivNotes.add(musicnote);
+        
+        if (IndivNotes.size()>=6){
+        success = SongCheck(player,IndivNotes);
+        }
+            if (success==true)IndivNotes.clear();
+        PlayersNotes.put(player, IndivNotes);
+    
+    
+    
+        return; 
     }   
 
+    
+    
+    
+    
+    public void PlayThatNoteFreely(Player player, Location location, Byte musicnote){
+        for (Player thisplayer : Bukkit.getServer().getOnlinePlayers()) { //Send note to every player
+            thisplayer.playNote(location, Instrument.PIANO, new Note(musicnote));
+        }
+        return; 
+    }   
     
     
     

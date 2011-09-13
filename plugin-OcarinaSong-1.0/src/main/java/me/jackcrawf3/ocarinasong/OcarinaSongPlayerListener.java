@@ -11,6 +11,7 @@ import org.bukkit.Instrument;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Note;
+import org.bukkit.Server;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
@@ -32,6 +33,7 @@ private final OcarinaSong plugin;
 public Map<Player, Integer> YourId = new HashMap<Player, Integer>();
 public Map<Player, Location> MusicBoxBlockLocation = new HashMap<Player, Location>();
 public Map<Player, Material> WhatWasItBefore = new HashMap<Player, Material>();
+public Server server;
 
 
     public OcarinaSongPlayerListener(OcarinaSong plugin) {
@@ -51,12 +53,39 @@ public Map<Player, Material> WhatWasItBefore = new HashMap<Player, Material>();
     
     
     
+    public void PlaySong(String song, Player player){
+        if (song=="time"){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfTime(player, plugin, 0),3);
+                if (player.hasPermission("jack.ocarina.time")){
+                    plugin.getServer().broadcastMessage(ChatColor.GREEN + player.getName() + " has changed the time of day!");
+                    player.getWorld().setTime(player.getWorld().getTime()+12000);
+                 }
+        }
+        else if (song=="storms"){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfStorms(player, plugin, 0),3);
+            if (player.hasPermission("jack.ocarina.storms")){
+                plugin.getServer().broadcastMessage(ChatColor.GREEN + player.getName() + " has changed the weather!");
+                if(player.getWorld().hasStorm()==true){ player.getWorld().setStorm(false);}
+                else{ player.getWorld().setStorm(true);}
+            }
+        }
+        
+        
+        
+        return;
+        
+    }
+    
 
     
 
     @Override
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+        if (Action.LEFT_CLICK_BLOCK == event.getAction()){           
+            if (event.getClickedBlock().equals(player.getLocation().getBlock().getRelative(BlockFace.DOWN))){
+                event.setCancelled(true);
+                return;
+            }
+        }
         if (Action.RIGHT_CLICK_BLOCK != event.getAction() && Action.RIGHT_CLICK_AIR != event.getAction()) return;
      
         if (Action.RIGHT_CLICK_BLOCK == event.getAction() && event.getClickedBlock().getLocation().equals(MusicBoxBlockLocation.get(player))) {

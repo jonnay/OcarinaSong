@@ -34,14 +34,6 @@ class OcarinaSongCommand implements CommandExecutor {
                 if (args.length==0){
                     plugin.listSongs(player);
                 }
-                else{
-                    if (!player.hasPermission("jack.ocarina.time")){
-                        if(args[1]=="time"){
-                            Bukkit.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new SongOfTime((Player)sender),10);
-                            player.sendMessage("Playing Song of Time!");
-                        }
-                    }
-                }
             }   
         }
     return true;

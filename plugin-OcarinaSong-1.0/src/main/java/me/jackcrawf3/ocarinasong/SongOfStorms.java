@@ -16,18 +16,18 @@ import org.bukkit.entity.Player;
  *
  * @author Jackcrawf3
  */
-public class SongOfTime implements Runnable {
+public class SongOfStorms implements Runnable {
 
     private Player player;
     private boolean finished = false;
     OcarinaSong plugin;
     private int currently;
     
-    static final byte song[] = {0x0F,0x12, 0x11,0x00, 0x0D,0x0B,0x0D, 0x00, 0x0F, 0x08,0x00,0x6,0x0A,0x08};
+    static final byte song[] = {0x16,0x17, 0x16,0x17, 0x16,0x12,0x0F, 0x00, 0x0F, 0x08, 0x0B, 0x0D, 0x0F,0x00, 0x0F, 0x08, 0x0B, 0x0D, 0x0A,};
 
 
 
-    public SongOfTime(Player thisplayer,OcarinaSong plugin, Integer counter){
+    public SongOfStorms(Player thisplayer,OcarinaSong plugin, Integer counter){
      this.plugin = plugin;
      player = thisplayer;
      currently = counter;
@@ -52,12 +52,19 @@ public class SongOfTime implements Runnable {
             
             if (currently>song.length)return;
 
-            if (musicnote!= 0x00){plugin.PlayThatNoteFreely(player, player.getLocation().getBlock().getRelative(BlockFace.DOWN).getLocation(), musicnote);
-            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfTime(player, plugin, currently),5);
+            if (musicnote!= 0x00 && musicnote!=0x16 && musicnote!= 0x17){
+            plugin.PlayThatNoteFreely(player, player.getLocation().getBlock().getRelative(BlockFace.DOWN).getLocation(), musicnote);
+            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfStorms(player, plugin, currently),5);
+            }
+            else if (musicnote==0x00){
+            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfStorms(player, plugin, currently),3);
             }
             else{
-            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfTime(player, plugin, currently),3);
+            plugin.PlayThatNoteFreely(player, player.getLocation().getBlock().getRelative(BlockFace.DOWN).getLocation(), musicnote);
+            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfStorms(player, plugin, currently),3);
             }
+            
+            
         }
         return;
 
