@@ -4,9 +4,16 @@ Plugin for Bukkit
 Allows players to use a LoZ-Style Ocarina by right clicking with an Ocarina (Brick), and then tapping Up/Down/Left/Right/Sneak 
 to play notes in the exact same fashion as LoZ
 
-+All the classic LoZ songs are playable on it!
++All the classic LoZ songs will be playable on it
+
+(In the list so far: Song of Time, Song of Storms)
 
 To Do:
- -Add Recognition for Songs
- -Add more Permissions
- -Finish and publish the first version
+-Add more songs/permissions
+
+
+
+Permission Nodes:
+jack.ocarina - Allows user to play Ocarina
+jack.ocarina.time - Allows user to change time via Song of Time
+jack.ocarina.storms - Allows user to change weather via Song of Storms
