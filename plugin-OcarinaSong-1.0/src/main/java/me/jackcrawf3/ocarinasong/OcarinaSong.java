@@ -47,8 +47,7 @@ public class OcarinaSong extends JavaPlugin {
     
     @Override
     public void onEnable()
-    {
-        
+    {  
         //Set up commands
         getCommand("ocarina").setExecutor(new OcarinaSongCommand(this,0));
         getServer().getPluginManager().registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Priority.Highest, this);
@@ -59,7 +58,6 @@ public class OcarinaSong extends JavaPlugin {
         System.out.println("OcarinaSong has initialized!");
         return;
     }
-
 
    public boolean isPlaying(Player player) {
         return musicians.contains(player);
@@ -73,14 +71,7 @@ public class OcarinaSong extends JavaPlugin {
         }
         return;
     }
-    
-    
-    
-    
-    
-    
-    
-    
+
     public void hitUp(Player player, Location location) {
         byte musicnote = 0x14;
         /* B */
