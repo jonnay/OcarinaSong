@@ -126,53 +126,30 @@ public class OcarinaSong extends JavaPlugin {
     public boolean SongCheck(Player player, List YourSong){
         List SongOfTime = new LinkedList();
         SongOfTime = new ArrayList();    
-        byte ByteNote;
-        ByteNote = 0x0F;
-        SongOfTime.add(ByteNote);
-        ByteNote = 0x08;
-        SongOfTime.add(ByteNote);
-        ByteNote = 0x0B;
-        SongOfTime.add(ByteNote);
-        ByteNote = 0x0F;
-        SongOfTime.add(ByteNote);
-        ByteNote = 0x08;
-        SongOfTime.add(ByteNote);
-        ByteNote = 0x0B;
-        SongOfTime.add(ByteNote);
-
-        
-        
+        SongOfTime.add(0x0F);
+        SongOfTime.add(0x08);
+        SongOfTime.add(0x0B);
+        SongOfTime.add(0x0F);
+        SongOfTime.add(0x08);
+        SongOfTime.add(0x0B);
         List SongOfStorms = new LinkedList();
         SongOfStorms = new ArrayList();    
-        ByteNote = 0x08;
-        SongOfStorms.add(ByteNote);
-        ByteNote = 0x0B;
-        SongOfStorms.add(ByteNote);
-        ByteNote = 0x014;
-        SongOfStorms.add(ByteNote);
-        ByteNote = 0x08;
-        SongOfStorms.add(ByteNote);
-        ByteNote = 0x0B;
-        SongOfStorms.add(ByteNote);
-        ByteNote = 0x014;
-        SongOfStorms.add(ByteNote);
+        SongOfStorms.add(0x08);
+        SongOfStorms.add(0x0B);
+        SongOfStorms.add(0x14);
+        SongOfStorms.add(0x08);
+        SongOfStorms.add(0x0B);
+        SongOfStorms.add(0x14);
         
-        
-        
-        
-        
-        
-
+       
         List LastSix = new LinkedList();
         LastSix = new ArrayList();   
-
-        LastSix.add(YourSong.get(YourSong.size()-6));
-        LastSix.add(YourSong.get(YourSong.size()-5));
-        LastSix.add(YourSong.get(YourSong.size()-4));
-        LastSix.add(YourSong.get(YourSong.size()-3));
-        LastSix.add(YourSong.get(YourSong.size()-2));
-        LastSix.add(YourSong.get(YourSong.size()-1));
         
+        int thiscounter = 6;
+        while (thiscounter>0){
+        LastSix.add(YourSong.get(YourSong.size()-thiscounter));
+        thiscounter--;
+        }
             
         if (SongOfTime.equals(LastSix)){
             player.sendMessage(ChatColor.AQUA + "Played the " + ChatColor.GRAY + "Song of Time" + ChatColor.AQUA + "!");
@@ -184,24 +161,10 @@ public class OcarinaSong extends JavaPlugin {
             this.playerListener.PlaySong("storms", player);
             return true;
         }
-        
-        
-        
-        
-        
-        
-        
         return false;
     }
     
-   
-    
-    
-    public boolean hashcode(){
-    
-    
-    return false;
-    }
+  
     
     
     
@@ -257,7 +220,8 @@ public class OcarinaSong extends JavaPlugin {
     public void listSongs(Player player){
     
     player.sendMessage(ChatColor.AQUA + "Songs you can Play:");
-    player.sendMessage(ChatColor.GRAY + "Song of Storms");
+    player.sendMessage(ChatColor.GRAY + "Song of Storms: S V ^ S V ^");
+    player.sendMessage(ChatColor.GRAY + "Song of Time: > S V > S V");
     
     }
     
