@@ -61,7 +61,8 @@ public class SongOfHealing implements Runnable {
             currently++;
             
             if (currently>song.length){currently=0;
-            player.setHealth(player.getHealth() + 2);}
+            if (player.hasPermission("jack.ocarina.healing")){
+            player.setHealth(player.getHealth() + 2);}}
             
             byte test;
             test = 0x01;
