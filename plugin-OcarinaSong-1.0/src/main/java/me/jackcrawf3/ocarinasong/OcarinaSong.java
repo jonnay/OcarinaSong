@@ -163,11 +163,7 @@ public class OcarinaSong extends JavaPlugin {
         }
         return false;
     }
-    
-  
-    
-    
-    
+
     public void PlayThatNote(Player player, Location location, Byte musicnote){
     for (Player thisplayer : Bukkit.getServer().getOnlinePlayers()) { //Send note to every player
         thisplayer.playNote(location, Instrument.PIANO, new Note(musicnote));
@@ -175,7 +171,7 @@ public class OcarinaSong extends JavaPlugin {
     List IndivNotes = new LinkedList();
     IndivNotes = new ArrayList();     
     
-     if (PlayersNotes.containsKey(player)){
+    if (PlayersNotes.containsKey(player)){
        IndivNotes = PlayersNotes.get(player);
     }
      
@@ -183,19 +179,13 @@ public class OcarinaSong extends JavaPlugin {
         IndivNotes.add(musicnote);
         
         if (IndivNotes.size()>=6){
-        success = SongCheck(player,IndivNotes);
+            success = SongCheck(player,IndivNotes);
         }
-            if (success==true)IndivNotes.clear();
+        if (success==true)IndivNotes.clear();
         PlayersNotes.put(player, IndivNotes);
-    
-    
-    
         return; 
     }   
 
-    
-    
-    
     
     public void PlayThatNoteFreely(Player player, Location location, Byte musicnote){
         for (Player thisplayer : Bukkit.getServer().getOnlinePlayers()) { //Send note to every player
@@ -203,37 +193,24 @@ public class OcarinaSong extends JavaPlugin {
         }
         return; 
     }   
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     public void listSongs(Player player){
     
     player.sendMessage(ChatColor.AQUA + "Songs you can Play:");
     player.sendMessage(ChatColor.GRAY + "Song of Storms: S V ^ S V ^");
     player.sendMessage(ChatColor.GRAY + "Song of Time: > S V > S V");
-    
     }
     
     
     public void StartOcarina(Player player){
-            playerListener.StartPlaying(player);
-    return;
+        playerListener.StartPlaying(player);
+        return;
     }
     
     
     public void StopOcarina(Player player){
-            playerListener.StopPlaying(player);
+        playerListener.StopPlaying(player);
         return;
     }
     
@@ -245,12 +222,7 @@ public class OcarinaSong extends JavaPlugin {
         }
         return;
     }
-    
-    
-    
-    
-    
-    
+
     @Override
     public void onDisable()
     {
