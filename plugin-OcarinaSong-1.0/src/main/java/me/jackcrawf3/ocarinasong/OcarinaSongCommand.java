@@ -29,7 +29,7 @@ class OcarinaSongCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(("ocarina".equals(command.getLabel()))) {
-            if (sender.hasPermission("jack.ocarina")){
+            if (sender.hasPermission("ocarina")){
                 plugin.listSongs(sender);
             }
             else{sender.sendMessage(ChatColor.DARK_RED + "You're too unintelligent to know anything about Ocarinas");}

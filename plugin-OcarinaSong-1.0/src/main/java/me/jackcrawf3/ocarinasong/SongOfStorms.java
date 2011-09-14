@@ -37,7 +37,7 @@ public class SongOfStorms implements Runnable {
         
         if (plugin.isPlaying(player)) {
             byte musicnote = 0x01;
-            if (!player.hasPermission("jack.ocarina")) {
+            if (!player.hasPermission("ocarina")) {
                 return;
             }
             if (finished) {

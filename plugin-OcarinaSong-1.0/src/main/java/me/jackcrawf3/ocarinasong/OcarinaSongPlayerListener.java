@@ -55,25 +55,25 @@ public Server server;
     
     public void PlaySong(String song, Player player){
         if (song=="time"){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfTime(player, plugin, 0),4);
-                if (player.hasPermission("jack.ocarina.time")){
+                if (player.hasPermission("ocarina.time")){
                     plugin.getServer().broadcastMessage(ChatColor.GREEN + player.getName() + " has changed the time of day!");
                     player.getWorld().setTime(player.getWorld().getTime()+12000);
                  }
         }
         else if (song=="storms"){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfStorms(player, plugin, 0),4);
-            if (player.hasPermission("jack.ocarina.storms")){
+            if (player.hasPermission("ocarina.storms")){
                 plugin.getServer().broadcastMessage(ChatColor.GREEN + player.getName() + " has changed the weather!");
                 if(player.getWorld().hasStorm()==true){ player.getWorld().setStorm(false);}
                 else{ player.getWorld().setStorm(true);}
             }
         }
         else if (song=="healing"){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfHealing(player, plugin, 0),4);
-            if (player.hasPermission("jack.ocarina.healing")){
+            if (player.hasPermission("ocarina.healing")){
             }
         }
         
         else if (song=="zelda"){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new ZeldasLullaby(player, plugin, 0),4);
-            if (player.hasPermission("jack.ocarina.zelda")){
+            if (player.hasPermission("ocarina.zelda")){
             }
         }
     
@@ -119,7 +119,7 @@ public Server server;
         
         if (Action.RIGHT_CLICK_AIR == event.getAction() || Action.RIGHT_CLICK_BLOCK == event.getAction()){
             if (event.getMaterial() == Material.CLAY_BRICK){
-                if (!player.hasPermission("jack.ocarina")){
+                if (!player.hasPermission("ocarina")){
                     player.sendMessage(ChatColor.RED + "You're not skilled enough to play the Ocarina!");
                 return;
                 }
@@ -147,7 +147,7 @@ public Server server;
     
     
     public void StartPlaying(Player player){
-            if (player.hasPermission("jack.ocarina")){
+            if (player.hasPermission("ocarina")){
                 if (player.getLocation().getBlock().getRelative(BlockFace.DOWN).isLiquid() || (player.getLocation().getBlock().getRelative(BlockFace.DOWN).isEmpty()))return;
                 plugin.setPlaying(player, true);
                 player.sendMessage(ChatColor.DARK_PURPLE + "You start playing your " + ChatColor.AQUA + "ocarina" + ChatColor.DARK_PURPLE + "!");
@@ -177,7 +177,7 @@ public Server server;
     @Override
     public void onPlayerToggleSneak(PlayerToggleSneakEvent event) {
             Player player = event.getPlayer();
-            if (!player.hasPermission("jack.ocarina")) {
+            if (!player.hasPermission("ocarina")) {
                 return;
             }
             if (plugin.isPlaying(player)){   

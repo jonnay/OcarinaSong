@@ -5,31 +5,31 @@ author: Jackcrawf3
 main: me.jackcrawf3.ocarinasong.OcarinaSong
 
 permissions:
-    jack.ocarina:
+    ocarina:
             default: op
             description: Lets you play the Ocarina!
-    jack.ocarina.time:
+    ocarina.time:
             default: op
             description: Lets you play the Song of Time wtih effect!
-    jack.ocarina.storms:
+    ocarina.storms:
             default: op
             description: Lets you play the Song of Storms; Change Weather!
-    jack.ocarina.healing:
+    ocarina.healing:
             default: op
             description: Makes it so that playing the Song of Healing will gradually heal you!
-    jack.ocarina.healing.wool:
+    ocarina.healing.wool:
             default: op
             description: Makes it so that playing the Song of Healing will replenish sheep wool!
-    jack.ocarina.healing.pig:
+    ocarina.healing.pig:
             default: op
             description: Makes it so that playing the Song of Healing will heal Pigmen into pigs!
-    jack.ocarina.healing.burn:
+    ocarina.healing.burn:
             default: op
             description: Makes it so that playing the Song of Healing will burn the evil out of mobs!
-    jack.ocarina.zeldacalm:
+    ocarina.zeldacalm:
             default: op
             description: Allows you to calm wild animals using Zelda's Lullaby!
-    jack.ocarina.zeldatame:
+    ocarina.zeldatame:
             default: op
             description: Allows you to tame wild animals using Zelda's Lullaby!
 commands:

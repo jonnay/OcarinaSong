@@ -47,7 +47,7 @@ public class ZeldasLullaby implements Runnable {
         
         if (plugin.isPlaying(player)) {
             byte musicnote = 0x01;
-            if (!player.hasPermission("jack.ocarina")) {
+            if (!player.hasPermission("ocarina")) {
                 return;
             }
             if (finished) {
@@ -66,7 +66,7 @@ public class ZeldasLullaby implements Runnable {
                     if ("org.bukkit.craftbukkit.entity.CraftWolf".equals(thisentity.getClass().getName())){
                         Wolf thewolf = (Wolf)thisentity;
                          Location wolflocation = thewolf.getLocation();
-                        if (player.hasPermission("jack.ocarina.zeldacalm")){
+                        if (player.hasPermission("ocarina.zeldacalm")){
                             if (thewolf.isAngry()){
                             AnimalTamer owner = thewolf.getOwner();
                             thewolf.remove();
@@ -80,7 +80,7 @@ public class ZeldasLullaby implements Runnable {
                             }
                             thewolf.setSitting(true);
                         }
-                        if (player.hasPermission("jack.ocarina.zeldatame")){
+                        if (player.hasPermission("ocarina.zeldatame")){
                             if (thewolf.isTamed()==false){
                                 thewolf.setAngry(false);
                                 thewolf.setTamed(true);

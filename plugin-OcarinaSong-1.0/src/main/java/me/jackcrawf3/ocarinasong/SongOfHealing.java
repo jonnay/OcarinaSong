@@ -53,7 +53,7 @@ public class SongOfHealing implements Runnable {
         
         if (plugin.isPlaying(player)) {
             byte musicnote;
-            if (!player.hasPermission("jack.ocarina")) {
+            if (!player.hasPermission("ocarina")) {
                 return;
             }
             if (finished) {
@@ -73,7 +73,7 @@ public class SongOfHealing implements Runnable {
             currently++;
             
             if (currently>song.length){currently=0;
-            if (player.hasPermission("jack.ocarina.healing")){
+            if (player.hasPermission("ocarina.healing")){
                  player.setHealth(player.getHealth()+2);
             List entities = player.getNearbyEntities(10,10,10);
                 for (Object entity : entities){
@@ -98,9 +98,9 @@ public class SongOfHealing implements Runnable {
                    if ("org.bukkit.craftbukkit.entity.CraftSheep".equals(thisentity.getClass().getName())){
                         Sheep thismob = (Sheep)thisentity;
                         thismob.setHealth(thismob.getHealth() + 2);
-                        if (player.hasPermission("jack.ocarina.healing.wool"))thismob.setSheared(false);
+                        if (player.hasPermission("ocarina.healing.wool"))thismob.setSheared(false);
                     }
-                   if (player.hasPermission("jack.ocarina.healing.burn")){
+                   if (player.hasPermission("ocarina.healing.burn")){
                    if ("org.bukkit.craftbukkit.entity.CraftSkeleton".equals(thisentity.getClass().getName())){
                         Skeleton thismob = (Skeleton)thisentity;
                         thismob.damage(1);
@@ -118,7 +118,7 @@ public class SongOfHealing implements Runnable {
                         thismob.damage(1);
                     }
                    }
-                   if (player.hasPermission("jack.ocarina.healing.pig")){
+                   if (player.hasPermission("ocarina.healing.pig")){
                    if ("org.bukkit.craftbukkit.entity.CraftPigZombie".equals(thisentity.getClass().getName())){
                         PigZombie thismob = (PigZombie)thisentity;
                         thismob.setHealth(thismob.getHealth()+2);
