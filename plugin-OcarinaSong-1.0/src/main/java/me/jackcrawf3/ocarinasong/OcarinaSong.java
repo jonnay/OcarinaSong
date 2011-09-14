@@ -158,6 +158,20 @@ public class OcarinaSong extends JavaPlugin {
         SongOfHealing.add(musicnote);
         musicnote = 0x0B;
         SongOfHealing.add(musicnote);
+        List ZeldasLullaby = new LinkedList();
+        ZeldasLullaby = new ArrayList();    
+        musicnote = 0x11;
+        ZeldasLullaby.add(musicnote);
+        musicnote = 0x14;
+        ZeldasLullaby.add(musicnote);
+        musicnote = 0x0F;
+        ZeldasLullaby.add(musicnote);
+        musicnote = 0x11;
+        ZeldasLullaby.add(musicnote);
+        musicnote = 0x14;
+        ZeldasLullaby.add(musicnote);
+        musicnote = 0x0F;
+        ZeldasLullaby.add(musicnote);
         
        
         List LastSix = new LinkedList();
@@ -184,6 +198,11 @@ public class OcarinaSong extends JavaPlugin {
         else if (SongOfHealing.equals(LastSix)){
             player.sendMessage(ChatColor.AQUA + "Played the " + ChatColor.GRAY + "Song of Healing" + ChatColor.AQUA + "!");
             this.playerListener.PlaySong("healing", player);
+            return true;
+        }
+        else if (ZeldasLullaby.equals(LastSix)){
+            player.sendMessage(ChatColor.AQUA + "Played " + ChatColor.GRAY + "Zelda's Lullaby" + ChatColor.AQUA + "!");
+            this.playerListener.PlaySong("zelda", player);
             return true;
         }
         return false;
@@ -226,6 +245,7 @@ public class OcarinaSong extends JavaPlugin {
     sender.sendMessage(ChatColor.GRAY + "Song of Storms:" + ChatColor.YELLOW + " S V ^ S V ^");
     sender.sendMessage(ChatColor.GRAY + "Song of Time:" + ChatColor.YELLOW + " > S V > S V");
     sender.sendMessage(ChatColor.GRAY + "Song of Healing:" + ChatColor.YELLOW + " < > V < > V");
+    sender.sendMessage(ChatColor.GRAY + "Zelda's Lullaby:" + ChatColor.YELLOW + " < ^ > < ^ >");
     return;
     }
     

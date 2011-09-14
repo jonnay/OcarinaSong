@@ -72,6 +72,12 @@ public Server server;
             }
         }
         
+        else if (song=="zelda"){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new ZeldasLullaby(player, plugin, 0),4);
+            if (player.hasPermission("jack.ocarina.zelda")){
+            }
+        }
+    
+        
         
         
         return;
@@ -84,10 +90,13 @@ public Server server;
     @Override
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+
         if (Action.LEFT_CLICK_BLOCK == event.getAction()){           
             if (event.getClickedBlock().equals(player.getLocation().getBlock().getRelative(BlockFace.DOWN))){
+                if (plugin.isPlaying(player)){
                 event.setCancelled(true);
                 return;
+                }
             }
         }
         if (Action.RIGHT_CLICK_BLOCK != event.getAction() && Action.RIGHT_CLICK_AIR != event.getAction()) return;
@@ -155,7 +164,7 @@ public Server server;
     
                 plugin.setPlaying(player, false);
                 player.sendMessage(ChatColor.DARK_PURPLE + "You stop playing your "+ ChatColor.AQUA + "ocarina" + ChatColor.DARK_PURPLE + "!");
-                MusicBoxBlockLocation.get(player).getBlock().setType(WhatWasItBefore.get(player));
+                if (WhatWasItBefore.get(player)!= Material.NOTE_BLOCK)MusicBoxBlockLocation.get(player).getBlock().setType(WhatWasItBefore.get(player));
                 Bukkit.getServer().getScheduler().cancelTask(YourId.get(player));
                 YourId.remove(player);
                 MusicBoxBlockLocation.remove(player);

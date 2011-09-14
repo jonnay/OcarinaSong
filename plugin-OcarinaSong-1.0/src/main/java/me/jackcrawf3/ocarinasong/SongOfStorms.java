@@ -23,7 +23,7 @@ public class SongOfStorms implements Runnable {
     OcarinaSong plugin;
     private int currently;
     
-    static final byte song[] = {0x16,0x17, 0x16,0x17, 0x16,0x12,0x0F, 0x00, 0x0F, 0x08, 0x0B, 0x0D, 0x0F,0x00, 0x0F, 0x08, 0x0B, 0x0D, 0x0A,};
+    static final byte song[] = {0x16, 0x00 ,0x17, 0x16,0x17, 0x16,0x12,0x0F, 0x00, 0x0F, 0x08, 0x0B, 0x0D, 0x0F,0x00,0x00, 0x0F, 0x08, 0x0B, 0x0D, 0x0A,};
 
 
 
@@ -54,14 +54,14 @@ public class SongOfStorms implements Runnable {
 
             if (musicnote!= 0x00 && musicnote!=0x16 && musicnote!= 0x17){
             plugin.PlayThatNoteFreely(player, player.getLocation().getBlock().getRelative(BlockFace.DOWN).getLocation(), musicnote);
-            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfStorms(player, plugin, currently),5);
+            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfStorms(player, plugin, currently),6);
             }
             else if (musicnote==0x00){
-            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfStorms(player, plugin, currently),3);
+            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfStorms(player, plugin, currently),4);
             }
             else{
             plugin.PlayThatNoteFreely(player, player.getLocation().getBlock().getRelative(BlockFace.DOWN).getLocation(), musicnote);
-            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfStorms(player, plugin, currently),3);
+            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfStorms(player, plugin, currently),4);
             }
             
             

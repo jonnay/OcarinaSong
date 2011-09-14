@@ -17,6 +17,21 @@ permissions:
     jack.ocarina.healing:
             default: op
             description: Makes it so that playing the Song of Healing will gradually heal you!
+    jack.ocarina.healing.wool:
+            default: op
+            description: Makes it so that playing the Song of Healing will replenish sheep wool!
+    jack.ocarina.healing.pig:
+            default: op
+            description: Makes it so that playing the Song of Healing will heal Pigmen into pigs!
+    jack.ocarina.healing.burn:
+            default: op
+            description: Makes it so that playing the Song of Healing will burn the evil out of mobs!
+    jack.ocarina.zeldacalm:
+            default: op
+            description: Allows you to calm wild animals using Zelda's Lullaby!
+    jack.ocarina.zeldatame:
+            default: op
+            description: Allows you to tame wild animals using Zelda's Lullaby!
 commands:
     ocarina:
         description: Checks the list of songs playable on your ocarina!
