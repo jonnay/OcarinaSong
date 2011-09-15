@@ -8,6 +8,7 @@ package me.jackcrawf3.ocarinasong;
 
 import java.util.List;
 import org.bukkit.Bukkit;
+import org.bukkit.Effect;
 import org.bukkit.Instrument;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -16,6 +17,7 @@ import org.bukkit.World;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Creeper;
+import org.bukkit.entity.Enderman;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Pig;
 import org.bukkit.entity.PigZombie;
@@ -25,6 +27,7 @@ import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.Squid;
 import org.bukkit.entity.Wolf;
 import org.bukkit.entity.Zombie;
+import org.bukkit.inventory.ItemStack;
 
 /**
  *
@@ -118,6 +121,15 @@ public class SongOfHealing implements Runnable {
                         thismob.damage(1);
                     }
                    }
+                  if ("org.bukkit.craftbukkit.entity.CraftEnderman".equals(thisentity.getClass().getName())){
+                        Enderman thismob = (Enderman)thisentity;
+                        thismob.getWorld().dropItemNaturally(thismob.getEyeLocation(),new ItemStack(Material.ENDER_PEARL,1));
+                        thismob.getWorld().playEffect(thismob.getLocation(), Effect.EXTINGUISH, 1);
+                        thismob.getWorld().playEffect(thismob.getLocation(), Effect.EXTINGUISH, 2);
+                        thismob.getWorld().playEffect(thismob.getLocation(), Effect.EXTINGUISH, 3);
+                        thismob.getWorld().playEffect(thismob.getLocation(), Effect.SMOKE, 4);
+                        thismob.remove();
+                    }
                    if (player.hasPermission("ocarina.healing.pig")){
                    if ("org.bukkit.craftbukkit.entity.CraftPigZombie".equals(thisentity.getClass().getName())){
                         PigZombie thismob = (PigZombie)thisentity;
