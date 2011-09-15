@@ -172,6 +172,22 @@ public class OcarinaSong extends JavaPlugin {
         ZeldasLullaby.add(musicnote);
         musicnote = 0x0F;
         ZeldasLullaby.add(musicnote);
+        List SonataOfAwakening = new LinkedList();
+        SonataOfAwakening = new ArrayList();    
+        musicnote = 0x14;
+        SonataOfAwakening.add(musicnote);
+        musicnote = 0x11;
+        SonataOfAwakening.add(musicnote);
+        musicnote = 0x14;
+        SonataOfAwakening.add(musicnote);
+        musicnote = 0x11;
+        SonataOfAwakening.add(musicnote);
+        musicnote = 0x08;
+        SonataOfAwakening.add(musicnote);
+        musicnote = 0x0F;
+        SonataOfAwakening.add(musicnote);
+        musicnote = 0x08;
+        SonataOfAwakening.add(musicnote);
         
        
         List LastSix = new LinkedList();
@@ -184,6 +200,19 @@ public class OcarinaSong extends JavaPlugin {
         LastSix.add(YourSong.get(YourSong.size()-2));
         LastSix.add(YourSong.get(YourSong.size()-1));
 
+        
+        List LastSeven = new LinkedList();
+        LastSeven = new ArrayList();   
+        LastSeven.add(YourSong.get(YourSong.size()-7));
+        LastSeven.add(YourSong.get(YourSong.size()-6));
+        LastSeven.add(YourSong.get(YourSong.size()-5));
+        LastSeven.add(YourSong.get(YourSong.size()-4));
+        LastSeven.add(YourSong.get(YourSong.size()-3));
+        LastSeven.add(YourSong.get(YourSong.size()-2));
+        LastSeven.add(YourSong.get(YourSong.size()-1));
+        
+        
+        
             
         if (SongOfTime.equals(LastSix)){
             player.sendMessage(ChatColor.AQUA + "Played the " + ChatColor.GRAY + "Song of Time" + ChatColor.AQUA + "!");
@@ -205,6 +234,14 @@ public class OcarinaSong extends JavaPlugin {
             this.playerListener.PlaySong("zelda", player);
             return true;
         }
+        
+        /*if (SonataOfAwakening.equals(LastSeven)){
+            player.sendMessage(ChatColor.AQUA + "Played " + ChatColor.GRAY + "Sonata of Awakening" + ChatColor.AQUA + "!");
+            this.playerListener.PlaySong("awakening", player);
+            return true;
+        }*/
+        
+        
         return false;
     }
 

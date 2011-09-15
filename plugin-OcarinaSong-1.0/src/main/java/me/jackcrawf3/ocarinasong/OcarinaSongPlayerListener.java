@@ -76,6 +76,10 @@ public Server server;
             if (player.hasPermission("ocarina.zelda")){
             }
         }
+        else if (song=="awakening"){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfHealing(player, plugin, 0),4);
+            if (player.hasPermission("ocarina.awakening")){
+            }
+        }
     
         
         
