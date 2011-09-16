@@ -1,7 +1,6 @@
 
 package me.jackcrawf3.ocarinasong;
 
-import org.bukkit.Material;
 import org.bukkit.Server;
 import org.bukkit.block.Block;
 import org.bukkit.material.Button;

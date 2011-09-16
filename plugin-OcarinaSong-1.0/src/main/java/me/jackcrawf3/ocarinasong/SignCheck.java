@@ -68,7 +68,7 @@ public class SignCheck implements Runnable {
                         case 0x5:
                             facing=BlockFace.SOUTH;
                             break;
-                    }                                                       
+                    }                                                      
                     if (facing==BlockFace.NORTH||facing==BlockFace.WEST||facing==BlockFace.SOUTH||facing==BlockFace.EAST){
                         Block theblock;
                         if (facing==BlockFace.NORTH)theblock=sign.getBlock().getRelative(BlockFace.SOUTH);
@@ -147,7 +147,7 @@ public class SignCheck implements Runnable {
                                 theblock.getRelative(BlockFace.SOUTH).setData(lever.getData());
                             }
                         }
-                     }
+                    }
                 }
             }
         }
