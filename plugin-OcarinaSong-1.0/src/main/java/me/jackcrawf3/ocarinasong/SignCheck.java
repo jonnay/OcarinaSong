@@ -5,6 +5,7 @@ package me.jackcrawf3.ocarinasong;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Server;
@@ -68,7 +69,6 @@ public class SignCheck implements Runnable {
                             facing=BlockFace.SOUTH;
                             break;
                     }                                                       
-                
                     if (facing==BlockFace.NORTH||facing==BlockFace.WEST||facing==BlockFace.SOUTH||facing==BlockFace.EAST){
                         Block theblock;
                         if (facing==BlockFace.NORTH)theblock=sign.getBlock().getRelative(BlockFace.SOUTH);
@@ -76,13 +76,14 @@ public class SignCheck implements Runnable {
                         else if (facing==BlockFace.WEST)theblock=sign.getBlock().getRelative(BlockFace.EAST);
                         else if (facing==BlockFace.EAST)theblock=sign.getBlock().getRelative(BlockFace.WEST);
                         else theblock = sign.getBlock().getRelative(BlockFace.DOWN);
-                        
+                        int ticks = 15;
                         
                         if (theblock.getRelative(BlockFace.UP).getType().equals(Material.LEVER)|| theblock.getRelative(BlockFace.UP).getType().equals(Material.STONE_BUTTON)){
                             Button button = new Button();
                             Lever lever = new Lever();
                             if (theblock.getRelative(BlockFace.UP).getType().equals(Material.STONE_BUTTON)){button.setData(theblock.getRelative(BlockFace.UP).getData());
                             button.setPowered(true);
+                            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new KillButton(button, theblock.getRelative(BlockFace.UP), plugin),ticks);
                             theblock.getRelative(BlockFace.SOUTH).setData(button.getData());
                             }
                             if (theblock.getRelative(BlockFace.UP).getType().equals(Material.LEVER)){lever.setData(theblock.getRelative(BlockFace.UP).getData());
@@ -96,6 +97,7 @@ public class SignCheck implements Runnable {
                             Lever lever = new Lever();
                             if (theblock.getRelative(BlockFace.NORTH).getType().equals(Material.STONE_BUTTON)){button.setData(theblock.getRelative(BlockFace.NORTH).getData());
                             button.setPowered(true);
+                            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new KillButton(button, theblock.getRelative(BlockFace.NORTH), plugin),ticks);
                             theblock.getRelative(BlockFace.NORTH).setData(button.getData());
                             }
                             if (theblock.getRelative(BlockFace.NORTH).getType().equals(Material.LEVER)){lever.setData(theblock.getRelative(BlockFace.NORTH).getData());
@@ -109,6 +111,7 @@ public class SignCheck implements Runnable {
                             Lever lever = new Lever();
                             if (theblock.getRelative(BlockFace.EAST).getType().equals(Material.STONE_BUTTON)){button.setData(theblock.getRelative(BlockFace.EAST).getData());
                             button.setPowered(true);
+                            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new KillButton(button, theblock.getRelative(BlockFace.EAST), plugin),ticks);
                             theblock.getRelative(BlockFace.EAST).setData(button.getData());
                             }
                             if (theblock.getRelative(BlockFace.EAST).getType().equals(Material.LEVER)){lever.setData(theblock.getRelative(BlockFace.EAST).getData());
@@ -122,6 +125,7 @@ public class SignCheck implements Runnable {
                             Lever lever = new Lever();
                             if (theblock.getRelative(BlockFace.WEST).getType().equals(Material.STONE_BUTTON)){button.setData(theblock.getRelative(BlockFace.WEST).getData());
                             button.setPowered(true);
+                            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new KillButton(button, theblock.getRelative(BlockFace.WEST), plugin),ticks);
                             theblock.getRelative(BlockFace.WEST).setData(button.getData());
                             }
                             if (theblock.getRelative(BlockFace.WEST).getType().equals(Material.LEVER)){lever.setData(theblock.getRelative(BlockFace.WEST).getData());
@@ -135,6 +139,7 @@ public class SignCheck implements Runnable {
                             Lever lever = new Lever();
                             if (theblock.getRelative(BlockFace.SOUTH).getType().equals(Material.STONE_BUTTON)){button.setData(theblock.getRelative(BlockFace.SOUTH).getData());
                             button.setPowered(true);
+                            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new KillButton(button, theblock.getRelative(BlockFace.SOUTH), plugin),ticks);
                             theblock.getRelative(BlockFace.SOUTH).setData(button.getData());
                             }
                             if (theblock.getRelative(BlockFace.SOUTH).getType().equals(Material.LEVER)){lever.setData(theblock.getRelative(BlockFace.SOUTH).getData());
