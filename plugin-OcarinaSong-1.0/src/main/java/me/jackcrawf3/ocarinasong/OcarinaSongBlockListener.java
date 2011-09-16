@@ -30,7 +30,7 @@ public Server server;
         Player player = event.getPlayer();
         if (event.getLine(1).equals("[Awaken]")){
             if (event.getPlayer().hasPermission("ocarina.awakening.sign")){
-                event.setLine(1, "§7[Awaken]");
+                event.setLine(1, "§b[Awaken]");
                 event.getPlayer().sendMessage(ChatColor.AQUA+ "Created " + ChatColor.GRAY + "Awakening Detector" + ChatColor.AQUA + "!");
             }
             else{

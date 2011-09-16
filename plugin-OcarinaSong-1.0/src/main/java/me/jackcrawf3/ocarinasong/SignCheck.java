@@ -51,7 +51,7 @@ public class SignCheck implements Runnable {
             }
         }
         for (Sign sign : signs){
-            if (sign.getLine(1).equals("§7[Awaken]")){
+            if (sign.getLine(1).equals("§b[Awaken]")){
                 if (sign.getType()==Material.WALL_SIGN){
                     BlockFace facing;
                     facing = BlockFace.EAST_NORTH_EAST;
