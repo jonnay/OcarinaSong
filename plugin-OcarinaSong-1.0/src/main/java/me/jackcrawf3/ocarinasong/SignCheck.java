@@ -40,7 +40,6 @@ public class SignCheck implements Runnable {
         int playerZ = (int)player.getLocation().getZ();
         List<Sign> signs = new ArrayList<Sign>();
         World world = player.getWorld();
-        player.sendMessage("SignCheck was called...");
         for(int x = (int)playerX-radius;x<playerX+radius;x ++){
             for(int z = (int)playerZ-radius;z<playerZ+radius;z ++){
                 for(int y = (int)playerY-radius;y<playerY+radius;y ++){
@@ -51,7 +50,6 @@ public class SignCheck implements Runnable {
             }
         }
         for (Sign sign : signs){
-            player.sendMessage("Checking the area for signs...");
             if (sign.getLine(1).equals("§7[Awaken]")){
                 if (sign.getType()==Material.WALL_SIGN){
                     BlockFace facing;
@@ -59,19 +57,15 @@ public class SignCheck implements Runnable {
                     switch (sign.getBlock().getData()){
                         case 0x2:
                             facing=BlockFace.EAST;
-                            player.sendMessage("It's facing east");
                             break;
                         case 0x3:
                             facing=BlockFace.WEST;
-                            player.sendMessage("It's facing west");
                             break;
                         case 0x4:
                             facing=BlockFace.NORTH;
-                            player.sendMessage("It's facing north");
                             break;
                         case 0x5:
                             facing=BlockFace.SOUTH;
-                            player.sendMessage("It's facing south");
                             break;
                     }                                                       
                 
@@ -85,7 +79,6 @@ public class SignCheck implements Runnable {
                         
                         
                         if (theblock.getRelative(BlockFace.UP).getType().equals(Material.LEVER)|| theblock.getRelative(BlockFace.UP).getType().equals(Material.STONE_BUTTON)){
-                            player.sendMessage("Well, it does have a button/lever on it...");
                             Button button = new Button();
                             Lever lever = new Lever();
                             if (theblock.getRelative(BlockFace.UP).getType().equals(Material.STONE_BUTTON)){button.setData(theblock.getRelative(BlockFace.UP).getData());
@@ -99,7 +92,6 @@ public class SignCheck implements Runnable {
                            
                         }
                         if (theblock.getRelative(BlockFace.NORTH).getType().equals(Material.LEVER)|| theblock.getRelative(BlockFace.NORTH).getType().equals(Material.STONE_BUTTON)){
-                            player.sendMessage("Well, it does have a button/lever on it...");
                             Button button = new Button();
                             Lever lever = new Lever();
                             if (theblock.getRelative(BlockFace.NORTH).getType().equals(Material.STONE_BUTTON)){button.setData(theblock.getRelative(BlockFace.NORTH).getData());
@@ -113,7 +105,6 @@ public class SignCheck implements Runnable {
                            
                         }
                         if (theblock.getRelative(BlockFace.EAST).getType().equals(Material.LEVER)|| theblock.getRelative(BlockFace.EAST).getType().equals(Material.STONE_BUTTON)){
-                            player.sendMessage("Well, it does have a button/lever on it...");
                             Button button = new Button();
                             Lever lever = new Lever();
                             if (theblock.getRelative(BlockFace.EAST).getType().equals(Material.STONE_BUTTON)){button.setData(theblock.getRelative(BlockFace.EAST).getData());
@@ -127,7 +118,6 @@ public class SignCheck implements Runnable {
                            
                         }
                         if (theblock.getRelative(BlockFace.WEST).getType().equals(Material.LEVER)|| theblock.getRelative(BlockFace.WEST).getType().equals(Material.STONE_BUTTON)){
-                            player.sendMessage("Well, it does have a button/lever on it...");
                             Button button = new Button();
                             Lever lever = new Lever();
                             if (theblock.getRelative(BlockFace.WEST).getType().equals(Material.STONE_BUTTON)){button.setData(theblock.getRelative(BlockFace.WEST).getData());
@@ -141,7 +131,6 @@ public class SignCheck implements Runnable {
                            
                         }
                         if (theblock.getRelative(BlockFace.SOUTH).getType().equals(Material.LEVER)|| theblock.getRelative(BlockFace.SOUTH).getType().equals(Material.STONE_BUTTON)){
-                            player.sendMessage("Well, it does have a button/lever on it...");
                             Button button = new Button();
                             Lever lever = new Lever();
                             if (theblock.getRelative(BlockFace.SOUTH).getType().equals(Material.STONE_BUTTON)){button.setData(theblock.getRelative(BlockFace.SOUTH).getData());
