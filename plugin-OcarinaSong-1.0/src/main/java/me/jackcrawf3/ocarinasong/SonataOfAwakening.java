@@ -53,7 +53,7 @@ public class SonataOfAwakening implements Runnable {
             currently++;
             
             if (currently>song.length){
-                Bukkit.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new SignCheck(player, plugin,10),0);
+                if (player.hasPermission("ocarina.awakening"))Bukkit.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new SignCheck(player, plugin,10),0);
                 return;
             }
 
