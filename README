@@ -6,7 +6,7 @@ to play notes in the exact same fashion as LoZ
 
 +All the classic LoZ songs will be playable on it
 
-(In the list so far: Song of Time, Song of Storms, Song of Healing)
+(In the list so far: Song of Time, Song of Storms, Song of Healing, Zelda's Lullaby, Sonata of Awakening)
 
 To Do:
 -Add more songs/permissions
@@ -14,7 +14,36 @@ To Do:
 
 
 Permission Nodes:
-jack.ocarina - Allows user to play Ocarina
-jack.ocarina.time - Allows user to change time via Song of Time
-jack.ocarina.storms - Allows user to change weather via Song of Storms
-jack.ocarina.healing - Allows user to change weather via Song of Storms
+    ocarina:
+            default: op
+            description: Lets you play the Ocarina!
+    ocarina.time:
+            default: op
+            description: Lets you play the Song of Time wtih effect!
+    ocarina.storms:
+            default: op
+            description: Lets you play the Song of Storms; Change Weather!
+    ocarina.healing:
+            default: op
+            description: Makes it so that playing the Song of Healing will gradually heal you!
+    ocarina.healing.wool:
+            default: op
+            description: Makes it so that playing the Song of Healing will replenish sheep wool!
+    ocarina.healing.pig:
+            default: op
+            description: Makes it so that playing the Song of Healing will heal Pigmen into pigs!
+    ocarina.healing.burn:
+            default: op
+            description: Makes it so that playing the Song of Healing will burn the evil out of mobs!
+    ocarina.zeldacalm:
+            default: op
+            description: Allows you to calm wild animals using Zelda's Lullaby!
+    ocarina.zeldatame:
+            default: op
+            description: Allows you to tame wild animals using Zelda's Lullaby!
+    ocarina.awakening:
+            default: op
+            description: Allows you to awaken old things using the Sonata of Awakening!
+    ocarina.awakening.sign:
+            default: op
+            description: Allows you to create signs to be triggered by the Sonata of Awakening!
