@@ -76,43 +76,45 @@ public class SongOfHealing implements Runnable {
             currently++;
             
             if (currently>song.length){currently=0;
-            if (player.hasPermission("ocarina.healing")){
-                 player.setHealth(player.getHealth()+2);
-            List entities = player.getNearbyEntities(10,10,10);
+            
+                if (player.getHealth()<11)player.setHealth(player.getHealth()+2);
+                List entities = player.getNearbyEntities(10,10,10);
                 for (Object entity : entities){
                     Entity thisentity = (Entity)entity;
                     if ("org.bukkit.craftbukkit.entity.CraftWolf".equals(thisentity.getClass().getName())){
-                        Wolf thiswolf = (Wolf)thisentity;
-                        thiswolf.setHealth(thiswolf.getHealth() + 2);
+                        Wolf thismob = (Wolf)thisentity;
+                        thismob.setHealth(thismob.getHealth() + 2);
+                        if (player.hasPermission("ocarina.healing"))if (thismob.getHealth()<22)thismob.setHealth(thismob.getHealth() + 2);
                     }
                    if ("org.bukkit.craftbukkit.entity.CraftPlayer".equals(thisentity.getClass().getName())){
-                        Player thisplayer = (Player)thisentity;
-                        thisplayer.setHealth(thisplayer.getHealth() + 1);
+                        Player thismob = (Player)thisentity;
+                        if (player.hasPermission("ocarina.healing"))if (thismob.getHealth()<22)thismob.setHealth(thismob.getHealth() + 2);
                     }
                    if ("org.bukkit.craftbukkit.entity.CraftSquid".equals(thisentity.getClass().getName())){
                         Squid thismob = (Squid)thisentity;
-                        thismob.setHealth(thismob.getHealth() + 2);
+                        if (player.hasPermission("ocarina.healing"))if (thismob.getHealth()<12)thismob.setHealth(thismob.getHealth() + 2);
                     }
                    if ("org.bukkit.craftbukkit.entity.CraftPig".equals(thisentity.getClass().getName())){
                         Pig thismob = (Pig)thisentity;
-                        thismob.setHealth(thismob.getHealth() + 2);
+                        if (player.hasPermission("ocarina.healing"))if (thismob.getHealth()<12)thismob.setHealth(thismob.getHealth() + 2);
                     }
                   
                    if ("org.bukkit.craftbukkit.entity.CraftSheep".equals(thisentity.getClass().getName())){
                         Sheep thismob = (Sheep)thisentity;
-                        thismob.setHealth(thismob.getHealth() + 2);
+                       
+                        if (player.hasPermission("ocarina.healing"))if (thismob.getHealth()<12)thismob.setHealth(thismob.getHealth() + 2);
                         if (player.hasPermission("ocarina.healing.wool"))thismob.setSheared(false);
                     }
                    if (player.hasPermission("ocarina.healing.burn")){
                    if ("org.bukkit.craftbukkit.entity.CraftSkeleton".equals(thisentity.getClass().getName())){
                         Skeleton thismob = (Skeleton)thisentity;
-                        thismob.damage(1);
-                        thismob.setFireTicks(15);
+                        thismob.damage(2);
+                        thismob.setFireTicks(30);
                     }
                     if ("org.bukkit.craftbukkit.entity.CraftZombie".equals(thisentity.getClass().getName())){
                         Zombie thismob = (Zombie)thisentity;
-                        thismob.damage(1);
-                        thismob.setFireTicks(15);
+                        thismob.damage(2);
+                        thismob.setFireTicks(30);
                     }
                    if ("org.bukkit.craftbukkit.entity.CraftCreeper".equals(thisentity.getClass().getName())){
                         Creeper thismob = (Creeper)thisentity;
@@ -120,16 +122,22 @@ public class SongOfHealing implements Runnable {
                         thismob.setFireTicks(15);
                         thismob.damage(1);
                     }
-                   }
                   if ("org.bukkit.craftbukkit.entity.CraftEnderman".equals(thisentity.getClass().getName())){
                         Enderman thismob = (Enderman)thisentity;
-                        thismob.getWorld().dropItemNaturally(thismob.getEyeLocation(),new ItemStack(Material.ENDER_PEARL,1));
                         thismob.getWorld().playEffect(thismob.getLocation(), Effect.EXTINGUISH, 1);
                         thismob.getWorld().playEffect(thismob.getLocation(), Effect.EXTINGUISH, 2);
                         thismob.getWorld().playEffect(thismob.getLocation(), Effect.EXTINGUISH, 3);
                         thismob.getWorld().playEffect(thismob.getLocation(), Effect.SMOKE, 4);
-                        thismob.remove();
+                        thismob.getWorld().playEffect(thismob.getEyeLocation(), Effect.SMOKE, 4);
+                        thismob.getWorld().playEffect(thismob.getLocation(), Effect.BOW_FIRE, 0);
+                        thismob.getWorld().playEffect(thismob.getLocation(), Effect.SMOKE, 3);
+                        thismob.getWorld().playEffect(thismob.getLocation(), Effect.SMOKE, 2);
+                        thismob.getWorld().playEffect(thismob.getLocation(), Effect.SMOKE, 1);
+                        thismob.getWorld().playEffect(thismob.getLocation(), Effect.SMOKE, 0);
+                        thismob.setHealth(thismob.getHealth()+20);
+                        thismob.setTarget(thismob);
                     }
+                   }
                    if (player.hasPermission("ocarina.healing.pig")){
                    if ("org.bukkit.craftbukkit.entity.CraftPigZombie".equals(thisentity.getClass().getName())){
                         PigZombie thismob = (PigZombie)thisentity;
@@ -139,9 +147,9 @@ public class SongOfHealing implements Runnable {
                         thismob.remove();
                         Pig newmob;
                         newmob = (Pig)thisworld.spawnCreature(thislocation, CreatureType.PIG);
-                        newmob.setHealth(10);
+                        newmob.setHealth(12);
                     }
-                   }
+                   
                 }
             }
             

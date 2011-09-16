@@ -32,6 +32,12 @@ permissions:
     ocarina.zeldatame:
             default: op
             description: Allows you to tame wild animals using Zelda's Lullaby!
+    ocarina.awakening:
+            default: op
+            description: Allows you to awaken old things using the Sonata of Awakening!
+    ocarina.awakening.sign:
+            default: op
+            description: Allows you to create signs to be triggered by the Sonata of Awakening!
 commands:
     ocarina:
         description: Checks the list of songs playable on your ocarina!

@@ -39,6 +39,7 @@ import org.bukkit.plugin.Plugin;
  */
 public class OcarinaSong extends JavaPlugin {
     private OcarinaSongPlayerListener playerListener = new OcarinaSongPlayerListener(this);
+    private OcarinaSongBlockListener blockListener = new OcarinaSongBlockListener(this);
     public Set<Player> musicians = new HashSet<Player>();
     public Server server;
     public NoteBlock noteblock;
@@ -55,7 +56,9 @@ public class OcarinaSong extends JavaPlugin {
         getServer().getPluginManager().registerEvent(Event.Type.PLAYER_QUIT, playerListener, Priority.Highest, this);
         getServer().getPluginManager().registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Priority.Highest, this);
         getServer().getPluginManager().registerEvent(Event.Type.PLAYER_ITEM_HELD, playerListener, Priority.Highest, this);
+        getServer().getPluginManager().registerEvent(Event.Type.SIGN_CHANGE, blockListener, Priority.Highest, this);
         System.out.println("OcarinaSong has initialized!");
+        
         return;
     }
 
@@ -200,17 +203,17 @@ public class OcarinaSong extends JavaPlugin {
         LastSix.add(YourSong.get(YourSong.size()-2));
         LastSix.add(YourSong.get(YourSong.size()-1));
 
-        
         List LastSeven = new LinkedList();
         LastSeven = new ArrayList();   
-        LastSeven.add(YourSong.get(YourSong.size()-7));
-        LastSeven.add(YourSong.get(YourSong.size()-6));
-        LastSeven.add(YourSong.get(YourSong.size()-5));
-        LastSeven.add(YourSong.get(YourSong.size()-4));
-        LastSeven.add(YourSong.get(YourSong.size()-3));
-        LastSeven.add(YourSong.get(YourSong.size()-2));
-        LastSeven.add(YourSong.get(YourSong.size()-1));
-        
+        if (YourSong.size()>6){
+            LastSeven.add(YourSong.get(YourSong.size()-7));
+            LastSeven.add(YourSong.get(YourSong.size()-6));
+            LastSeven.add(YourSong.get(YourSong.size()-5));
+            LastSeven.add(YourSong.get(YourSong.size()-4));
+            LastSeven.add(YourSong.get(YourSong.size()-3));
+            LastSeven.add(YourSong.get(YourSong.size()-2));
+            LastSeven.add(YourSong.get(YourSong.size()-1));
+        }
         
         
             
@@ -235,11 +238,11 @@ public class OcarinaSong extends JavaPlugin {
             return true;
         }
         
-        /*if (SonataOfAwakening.equals(LastSeven)){
+        if (SonataOfAwakening.equals(LastSeven)){
             player.sendMessage(ChatColor.AQUA + "Played " + ChatColor.GRAY + "Sonata of Awakening" + ChatColor.AQUA + "!");
             this.playerListener.PlaySong("awakening", player);
             return true;
-        }*/
+        }
         
         
         return false;
@@ -283,6 +286,7 @@ public class OcarinaSong extends JavaPlugin {
     sender.sendMessage(ChatColor.GRAY + "Song of Time:" + ChatColor.YELLOW + " > S V > S V");
     sender.sendMessage(ChatColor.GRAY + "Song of Healing:" + ChatColor.YELLOW + " < > V < > V");
     sender.sendMessage(ChatColor.GRAY + "Zelda's Lullaby:" + ChatColor.YELLOW + " < ^ > < ^ >");
+    sender.sendMessage(ChatColor.GRAY + "Sonata of Awakening:" + ChatColor.YELLOW + " ^ < ^ < S > S");
     return;
     }
     

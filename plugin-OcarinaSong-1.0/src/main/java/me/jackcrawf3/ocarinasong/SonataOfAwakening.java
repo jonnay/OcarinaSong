@@ -26,7 +26,7 @@ public class SonataOfAwakening implements Runnable {
     OcarinaSong plugin;
     private int currently;
     
-    static final byte song[] = {0x0F};
+    static final byte song[] = {0x14, 0x11, 0x14, 0x11, 0x00, 0x08, 0x0F, 0x00, 0x08};
 
 
 
@@ -53,7 +53,7 @@ public class SonataOfAwakening implements Runnable {
             currently++;
             
             if (currently>song.length){
-                Chunk chunky = player.getWorld().getChunkAt(player.getLocation());
+                Bukkit.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new SignCheck(player, plugin,10),0);
                 return;
             }
 
@@ -61,7 +61,7 @@ public class SonataOfAwakening implements Runnable {
             Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SonataOfAwakening(player, plugin, currently),5);
             }
             else{
-            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SonataOfAwakening(player, plugin, currently),3);
+            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SonataOfAwakening(player, plugin, currently),2);
             }
         }
         return;

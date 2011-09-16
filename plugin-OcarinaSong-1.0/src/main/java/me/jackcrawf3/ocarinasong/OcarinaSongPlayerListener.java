@@ -54,29 +54,29 @@ public Server server;
     
     
     public void PlaySong(String song, Player player){
-        if (song=="time"){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfTime(player, plugin, 0),4);
+        if ("time".equals(song)){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfTime(player, plugin, 0),4);
                 if (player.hasPermission("ocarina.time")){
                     plugin.getServer().broadcastMessage(ChatColor.GREEN + player.getName() + " has changed the time of day!");
                     player.getWorld().setTime(player.getWorld().getTime()+12000);
                  }
         }
-        else if (song=="storms"){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfStorms(player, plugin, 0),4);
+        else if ("storms".equals(song)){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfStorms(player, plugin, 0),4);
             if (player.hasPermission("ocarina.storms")){
                 plugin.getServer().broadcastMessage(ChatColor.GREEN + player.getName() + " has changed the weather!");
                 if(player.getWorld().hasStorm()==true){ player.getWorld().setStorm(false);}
                 else{ player.getWorld().setStorm(true);}
             }
         }
-        else if (song=="healing"){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfHealing(player, plugin, 0),4);
+        else if ("healing".equals(song)){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfHealing(player, plugin, 0),4);
             if (player.hasPermission("ocarina.healing")){
             }
         }
         
-        else if (song=="zelda"){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new ZeldasLullaby(player, plugin, 0),4);
+        else if ("zelda".equals(song)){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new ZeldasLullaby(player, plugin, 0),4);
             if (player.hasPermission("ocarina.zelda")){
             }
         }
-        else if (song=="awakening"){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfHealing(player, plugin, 0),4);
+        else if ("awakening".equals(song)){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SonataOfAwakening(player, plugin, 0),4);
             if (player.hasPermission("ocarina.awakening")){
             }
         }
@@ -87,8 +87,6 @@ public Server server;
         return;
         
     }
-    
-
     
 
     @Override
