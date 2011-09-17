@@ -6,8 +6,8 @@
     <name>OcarinaSong</name>
     <repositories>
         <repository>
-            <id>bukkit-repo</id>
-            <url>http://repo.bukkit.org/artifactory/repo</url>
+            <id>github-repo</id>
+            <url>https://github.com/Jackcrawf3/OcarinaSong</url>
         </repository>
     </repositories>
     <build>
