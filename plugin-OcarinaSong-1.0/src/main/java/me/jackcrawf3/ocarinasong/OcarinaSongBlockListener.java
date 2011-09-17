@@ -28,7 +28,7 @@ public Server server;
     @Override
     public void onSignChange(SignChangeEvent event) {
         Player player = event.getPlayer();
-        if (event.getLine(1).equals("[Awaken]")){
+        if (event.getLine(1).equals("[Awaken]")||event.getLine(1).equals("[awaken]")||event.getLine(1).toLowerCase().equals("§b[awaken]".toLowerCase())){
             if (event.getPlayer().hasPermission("ocarina.awakening.sign")){
                 event.setLine(1, "§b[Awaken]");
                 event.getPlayer().sendMessage(ChatColor.AQUA+ "Created " + ChatColor.GRAY + "Awakening Detector" + ChatColor.AQUA + "!");
