@@ -76,7 +76,13 @@ public class SignCheck implements Runnable {
                         else if (facing==BlockFace.WEST)theblock=sign.getBlock().getRelative(BlockFace.EAST);
                         else if (facing==BlockFace.EAST)theblock=sign.getBlock().getRelative(BlockFace.WEST);
                         else theblock = sign.getBlock().getRelative(BlockFace.DOWN);
-                        int ticks = 15;
+                        int ticks = 20;
+                        try{
+                        if (Integer.parseInt(sign.getLine(2))>0)ticks = Integer.parseInt(sign.getLine(2))*20;
+                        }
+                        catch(java.lang.NumberFormatException err){
+                            ticks = 20;
+                        }
                         
                         if (theblock.getRelative(BlockFace.UP).getType().equals(Material.LEVER)|| theblock.getRelative(BlockFace.UP).getType().equals(Material.STONE_BUTTON)){
                             Button button = new Button();
