@@ -1,4 +1,3 @@
-
 package me.jackcrawf3.ocarinasong;
 
 import java.util.HashMap;
@@ -22,6 +21,8 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 
 /**
@@ -55,17 +56,8 @@ public Server server;
     
     public void PlaySong(String song, Player player){
         if ("time".equals(song)){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfTime(player, plugin, 0),4);
-                if (player.hasPermission("ocarina.time")){
-                    plugin.getServer().broadcastMessage(ChatColor.GREEN + player.getName() + " has changed the time of day!");
-                    player.getWorld().setTime(player.getWorld().getTime()+12000);
-                 }
         }
         else if ("storms".equals(song)){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfStorms(player, plugin, 0),4);
-            if (player.hasPermission("ocarina.storms")){
-                plugin.getServer().broadcastMessage(ChatColor.GREEN + player.getName() + " has changed the weather!");
-                if(player.getWorld().hasStorm()==true){ player.getWorld().setStorm(false);}
-                else{ player.getWorld().setStorm(true);}
-            }
         }
         else if ("healing".equals(song)){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfHealing(player, plugin, 0),4);
             if (player.hasPermission("ocarina.healing")){
@@ -79,13 +71,10 @@ public Server server;
         else if ("awakening".equals(song)){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SonataOfAwakening(player, plugin, 0),4);
             if (player.hasPermission("ocarina.awakening")){
             }
-        }
-    
-        
         
         
         return;
-        
+    }
     }
     
 

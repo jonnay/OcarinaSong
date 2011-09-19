@@ -22,7 +22,6 @@ import org.bukkit.entity.Player;
 public class SonataOfAwakening implements Runnable {
 
     private Player player;
-    private boolean finished = false;
     OcarinaSong plugin;
     private int currently;
     
@@ -43,9 +42,6 @@ public class SonataOfAwakening implements Runnable {
             if (!player.hasPermission("ocarina")) {
                 return;
             }
-            if (finished) {
-                return;
-            }
             if (player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType()!= Material.NOTE_BLOCK){return;}
             
             if(currently<song.length)musicnote = song[currently];
@@ -53,7 +49,7 @@ public class SonataOfAwakening implements Runnable {
             currently++;
             
             if (currently>song.length){
-                if (player.hasPermission("ocarina.awakening"))Bukkit.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new SignCheck(player, plugin,10),0);
+                if (player.hasPermission("ocarina.awakening"))Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SignCheck(player, plugin, "awakening"),0);
                 return;
             }
 

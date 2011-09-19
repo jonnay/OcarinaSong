@@ -50,8 +50,10 @@ public class SongOfStorms implements Runnable {
 
             currently++;
             
-            if (currently>song.length)return;
-
+            if (currently>song.length)
+            {if (player.hasPermission("ocarina.storms")){
+                player.getWorld().setStorm(!player.getWorld().hasStorm());
+                }return;}
             if (musicnote!= 0x00 && musicnote!=0x16 && musicnote!= 0x17){
             plugin.PlayThatNoteFreely(player, player.getLocation().getBlock().getRelative(BlockFace.DOWN).getLocation(), musicnote);
             Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfStorms(player, plugin, currently),6);

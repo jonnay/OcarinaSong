@@ -21,6 +21,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Note;
 import org.bukkit.Server;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -31,6 +32,8 @@ import org.bukkit.block.NoteBlock;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import org.bukkit.event.player.PlayerListener;
+import org.bukkit.material.Button;
+import org.bukkit.material.Lever;
 import org.bukkit.plugin.Plugin;
 
 /**
@@ -109,7 +112,6 @@ public class OcarinaSong extends JavaPlugin {
         PlayThatNote(player, location, musicnote);
         return;
     }
-    
     public Note MakeNote(byte Bite)
     {
     Note Noddy = new Note(Bite);
@@ -310,6 +312,27 @@ public class OcarinaSong extends JavaPlugin {
         }
         return;
     }
+    
+    public void checkForButtons(Block theblock, BlockFace blockface, int ticks){
+    
+        if (theblock.getRelative(blockface).getType().equals(Material.LEVER)|| theblock.getRelative(blockface).getType().equals(Material.STONE_BUTTON)){
+            Button button = new Button();
+            Lever lever = new Lever();
+            if (theblock.getRelative(blockface).getType().equals(Material.STONE_BUTTON)){button.setData(theblock.getRelative(blockface).getData());
+                button.setPowered(true);
+                Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new KillButton(button, theblock.getRelative(blockface), this),ticks);
+                theblock.getRelative(blockface).setData(button.getData());
+            }
+            if (theblock.getRelative(blockface).getType().equals(Material.LEVER)){lever.setData(theblock.getRelative(BlockFace.NORTH).getData());
+                lever.setPowered(!lever.isPowered());
+                theblock.getRelative(blockface).setData(lever.getData());
+            }
+
+        }
+    return;
+    }
+    
+    
 
     @Override
     public void onDisable()

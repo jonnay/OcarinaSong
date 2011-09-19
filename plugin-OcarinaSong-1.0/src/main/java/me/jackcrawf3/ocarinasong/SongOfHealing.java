@@ -36,7 +36,6 @@ import org.bukkit.inventory.ItemStack;
 public class SongOfHealing implements Runnable {
 
     private Player player;
-    private boolean finished = false;
     OcarinaSong plugin;
     private int currently;
     Location first;
@@ -57,9 +56,6 @@ public class SongOfHealing implements Runnable {
         if (plugin.isPlaying(player)) {
             byte musicnote;
             if (!player.hasPermission("ocarina")) {
-                return;
-            }
-            if (finished) {
                 return;
             }
             if (player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType()!= Material.NOTE_BLOCK)return;

@@ -29,7 +29,6 @@ import org.bukkit.entity.Wolf;
 public class ZeldasLullaby implements Runnable {
 
     private Player player;
-    private boolean finished = false;
     OcarinaSong plugin;
     private int currently;
     
@@ -50,9 +49,6 @@ public class ZeldasLullaby implements Runnable {
             if (!player.hasPermission("ocarina")) {
                 return;
             }
-            if (finished) {
-                return;
-            }
             if (player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType()!= Material.NOTE_BLOCK){return;}
             
             
@@ -66,7 +62,7 @@ public class ZeldasLullaby implements Runnable {
                     if ("org.bukkit.craftbukkit.entity.CraftWolf".equals(thisentity.getClass().getName())){
                         Wolf thewolf = (Wolf)thisentity;
                          Location wolflocation = thewolf.getLocation();
-                        if (player.hasPermission("ocarina.zeldacalm")){
+                        if (player.hasPermission("ocarina.zelda.calm")){
                             if (thewolf.isAngry()){
                             AnimalTamer owner = thewolf.getOwner();
                             thewolf.remove();
@@ -80,7 +76,7 @@ public class ZeldasLullaby implements Runnable {
                             }
                             thewolf.setSitting(true);
                         }
-                        if (player.hasPermission("ocarina.zeldatame")){
+                        if (player.hasPermission("ocarina.zelda.tame")){
                             if (thewolf.isTamed()==false){
                                 thewolf.setAngry(false);
                                 thewolf.setTamed(true);
@@ -89,6 +85,7 @@ public class ZeldasLullaby implements Runnable {
                         }
                     }          
                 }
+                if (player.hasPermission("ocarina.zelda.awaken")){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SignCheck(player, plugin, "zelda"),0);}
                 return;
             }
 

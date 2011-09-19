@@ -5,6 +5,7 @@
 package me.jackcrawf3.ocarinasong;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Instrument;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -40,9 +41,6 @@ public class SongOfTime implements Runnable {
             if (!player.hasPermission("ocarina")) {
                 return;
             }
-            if (finished) {
-                return;
-            }
             if (player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType()!= Material.NOTE_BLOCK){return;}
             
             
@@ -50,7 +48,16 @@ public class SongOfTime implements Runnable {
 
             currently++;
             
-            if (currently>song.length)return;
+            if (currently>song.length){
+                if (player.hasPermission("ocarina.time.awaken")){
+                    Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SignCheck(player, plugin, "time"),0);
+                }
+                if (player.hasPermission("ocarina.time")){
+                        plugin.getServer().broadcastMessage(ChatColor.GREEN + player.getName() + " has changed the time of day!");
+                        player.getWorld().setTime(player.getWorld().getTime()+12000);
+                }
+            return;
+            }
 
             if (musicnote!= 0x00){plugin.PlayThatNoteFreely(player, player.getLocation().getBlock().getRelative(BlockFace.DOWN).getLocation(), musicnote);
             Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SongOfTime(player, plugin, currently),5);

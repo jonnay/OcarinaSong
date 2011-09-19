@@ -11,6 +11,12 @@ permissions:
     ocarina.time:
             default: op
             description: Lets you play the Song of Time wtih effect!
+    ocarina.time.awaken:
+            default: op
+            description: Lets you trigger Song of Time detectors!
+    ocarina.time.sign:
+            default: op
+            description: Lets you create Song of Time detectors!
     ocarina.storms:
             default: op
             description: Lets you play the Song of Storms; Change Weather!
@@ -26,12 +32,18 @@ permissions:
     ocarina.healing.burn:
             default: op
             description: Makes it so that playing the Song of Healing will burn the evil out of mobs!
-    ocarina.zeldacalm:
+    ocarina.zelda.calm:
             default: op
             description: Allows you to calm wild animals using Zelda's Lullaby!
-    ocarina.zeldatame:
+    ocarina.zelda.tame:
             default: op
             description: Allows you to tame wild animals using Zelda's Lullaby!
+    ocarina.zelda.awaken:
+            default: op
+            description: Allows you to trigger Zelda's Lullaby detetors!
+    ocarina.zelda.sign:
+            default: op
+            description: Allows you to create Zelda's Lullaby detetors!
     ocarina.awakening:
             default: op
             description: Allows you to awaken old things using the Sonata of Awakening!

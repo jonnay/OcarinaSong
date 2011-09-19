@@ -27,11 +27,13 @@ public class SignCheck implements Runnable {
     OcarinaSong plugin;
     public Server server;
     int radius;
+    String song;
     
-    public SignCheck(Player thisplayer,OcarinaSong plugin,Integer radius){
+    public SignCheck(Player player,OcarinaSong plugin,String song){
      this.plugin = plugin;
-     player = thisplayer;
-     this.radius = radius;
+     this.player = player;
+     this.radius = 30;
+     this.song = song;
     }
         
     public void run() {
@@ -51,107 +53,53 @@ public class SignCheck implements Runnable {
             }
         }
         for (Sign sign : signs){
-            if (sign.getLine(1).equals("§b[Awaken]")){
-                if (sign.getType()==Material.WALL_SIGN){
-                    BlockFace facing;
-                    facing = BlockFace.EAST_NORTH_EAST;
-                    switch (sign.getBlock().getData()){
-                        case 0x2:
-                            facing=BlockFace.EAST;
-                            break;
-                        case 0x3:
-                            facing=BlockFace.WEST;
-                            break;
-                        case 0x4:
-                            facing=BlockFace.NORTH;
-                            break;
-                        case 0x5:
-                            facing=BlockFace.SOUTH;
-                            break;
-                    }                                                      
-                    if (facing==BlockFace.NORTH||facing==BlockFace.WEST||facing==BlockFace.SOUTH||facing==BlockFace.EAST){
-                        Block theblock;
-                        if (facing==BlockFace.NORTH)theblock=sign.getBlock().getRelative(BlockFace.SOUTH);
-                        else if (facing==BlockFace.SOUTH)theblock=sign.getBlock().getRelative(BlockFace.NORTH);
-                        else if (facing==BlockFace.WEST)theblock=sign.getBlock().getRelative(BlockFace.EAST);
-                        else if (facing==BlockFace.EAST)theblock=sign.getBlock().getRelative(BlockFace.WEST);
-                        else theblock = sign.getBlock().getRelative(BlockFace.DOWN);
-                        int ticks = 20;
-                        try{
-                        if (Integer.parseInt(sign.getLine(2))>0)ticks = Integer.parseInt(sign.getLine(2))*20;
-                        }
-                        catch(java.lang.NumberFormatException err){
-                            ticks = 20;
-                        }
-                        
-                        if (theblock.getRelative(BlockFace.UP).getType().equals(Material.LEVER)|| theblock.getRelative(BlockFace.UP).getType().equals(Material.STONE_BUTTON)){
-                            Button button = new Button();
-                            Lever lever = new Lever();
-                            if (theblock.getRelative(BlockFace.UP).getType().equals(Material.STONE_BUTTON)){button.setData(theblock.getRelative(BlockFace.UP).getData());
-                            button.setPowered(true);
-                            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new KillButton(button, theblock.getRelative(BlockFace.UP), plugin),ticks);
-                            theblock.getRelative(BlockFace.SOUTH).setData(button.getData());
+            if ((sign.getLine(1).equals("§b[Awaken]")&&"awakening".equals(song))||(sign.getLine(1).equals("§b[Time]")&&"time".equals(song))||(sign.getLine(1).equals("§b[Zelda]"))&&"zelda".equals(song)){
+                
+                int MaxDistance = 10;
+                try{
+                    if (Integer.parseInt(sign.getLine(3))>0)MaxDistance = Integer.parseInt(sign.getLine(3));
+                }
+                catch(java.lang.NumberFormatException err){
+                            MaxDistance = 10;
+                }
+                Location loc = new Location(player.getWorld(),sign.getX(),sign.getY(),sign.getZ(),0,0);
+                if (player.getLocation().distance(loc)<MaxDistance) {
+                    if (sign.getType()==Material.WALL_SIGN){
+                        BlockFace facing;
+                        facing = BlockFace.EAST_NORTH_EAST;
+                        switch (sign.getBlock().getData()){
+                            case 0x2:
+                                facing=BlockFace.EAST;
+                                break;
+                            case 0x3:
+                                facing=BlockFace.WEST;
+                                break;
+                            case 0x4:
+                                facing=BlockFace.NORTH;
+                                break;
+                            case 0x5:
+                                facing=BlockFace.SOUTH;
+                                break;
+                        }                                                      
+                        if (facing==BlockFace.NORTH||facing==BlockFace.WEST||facing==BlockFace.SOUTH||facing==BlockFace.EAST){
+                            Block theblock;
+                            if (facing==BlockFace.NORTH)theblock=sign.getBlock().getRelative(BlockFace.SOUTH);
+                            else if (facing==BlockFace.SOUTH)theblock=sign.getBlock().getRelative(BlockFace.NORTH);
+                            else if (facing==BlockFace.WEST)theblock=sign.getBlock().getRelative(BlockFace.EAST);
+                            else if (facing==BlockFace.EAST)theblock=sign.getBlock().getRelative(BlockFace.WEST);
+                            else theblock = sign.getBlock().getRelative(BlockFace.DOWN);
+                            int ticks = 20;
+                            try{
+                            if (Integer.parseInt(sign.getLine(2))>0)ticks = Integer.parseInt(sign.getLine(2))*20;
                             }
-                            if (theblock.getRelative(BlockFace.UP).getType().equals(Material.LEVER)){lever.setData(theblock.getRelative(BlockFace.UP).getData());
-                                lever.setPowered(!lever.isPowered());
-                                theblock.getRelative(BlockFace.UP).setData(lever.getData());
+                            catch(java.lang.NumberFormatException err){
+                                ticks = 20;
                             }
-                           
-                        }
-                        if (theblock.getRelative(BlockFace.NORTH).getType().equals(Material.LEVER)|| theblock.getRelative(BlockFace.NORTH).getType().equals(Material.STONE_BUTTON)){
-                            Button button = new Button();
-                            Lever lever = new Lever();
-                            if (theblock.getRelative(BlockFace.NORTH).getType().equals(Material.STONE_BUTTON)){button.setData(theblock.getRelative(BlockFace.NORTH).getData());
-                            button.setPowered(true);
-                            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new KillButton(button, theblock.getRelative(BlockFace.NORTH), plugin),ticks);
-                            theblock.getRelative(BlockFace.NORTH).setData(button.getData());
-                            }
-                            if (theblock.getRelative(BlockFace.NORTH).getType().equals(Material.LEVER)){lever.setData(theblock.getRelative(BlockFace.NORTH).getData());
-                                lever.setPowered(!lever.isPowered());
-                                theblock.getRelative(BlockFace.NORTH).setData(lever.getData());
-                            }
-                           
-                        }
-                        if (theblock.getRelative(BlockFace.EAST).getType().equals(Material.LEVER)|| theblock.getRelative(BlockFace.EAST).getType().equals(Material.STONE_BUTTON)){
-                            Button button = new Button();
-                            Lever lever = new Lever();
-                            if (theblock.getRelative(BlockFace.EAST).getType().equals(Material.STONE_BUTTON)){button.setData(theblock.getRelative(BlockFace.EAST).getData());
-                            button.setPowered(true);
-                            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new KillButton(button, theblock.getRelative(BlockFace.EAST), plugin),ticks);
-                            theblock.getRelative(BlockFace.EAST).setData(button.getData());
-                            }
-                            if (theblock.getRelative(BlockFace.EAST).getType().equals(Material.LEVER)){lever.setData(theblock.getRelative(BlockFace.EAST).getData());
-                                lever.setPowered(!lever.isPowered());
-                                theblock.getRelative(BlockFace.EAST).setData(lever.getData());
-                            }
-                           
-                        }
-                        if (theblock.getRelative(BlockFace.WEST).getType().equals(Material.LEVER)|| theblock.getRelative(BlockFace.WEST).getType().equals(Material.STONE_BUTTON)){
-                            Button button = new Button();
-                            Lever lever = new Lever();
-                            if (theblock.getRelative(BlockFace.WEST).getType().equals(Material.STONE_BUTTON)){button.setData(theblock.getRelative(BlockFace.WEST).getData());
-                            button.setPowered(true);
-                            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new KillButton(button, theblock.getRelative(BlockFace.WEST), plugin),ticks);
-                            theblock.getRelative(BlockFace.WEST).setData(button.getData());
-                            }
-                            if (theblock.getRelative(BlockFace.WEST).getType().equals(Material.LEVER)){lever.setData(theblock.getRelative(BlockFace.WEST).getData());
-                                lever.setPowered(!lever.isPowered());
-                                theblock.getRelative(BlockFace.WEST).setData(lever.getData());
-                            }
-                           
-                        }
-                        if (theblock.getRelative(BlockFace.SOUTH).getType().equals(Material.LEVER)|| theblock.getRelative(BlockFace.SOUTH).getType().equals(Material.STONE_BUTTON)){
-                            Button button = new Button();
-                            Lever lever = new Lever();
-                            if (theblock.getRelative(BlockFace.SOUTH).getType().equals(Material.STONE_BUTTON)){button.setData(theblock.getRelative(BlockFace.SOUTH).getData());
-                            button.setPowered(true);
-                            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new KillButton(button, theblock.getRelative(BlockFace.SOUTH), plugin),ticks);
-                            theblock.getRelative(BlockFace.SOUTH).setData(button.getData());
-                            }
-                            if (theblock.getRelative(BlockFace.SOUTH).getType().equals(Material.LEVER)){lever.setData(theblock.getRelative(BlockFace.SOUTH).getData());
-                                lever.setPowered(!lever.isPowered());
-                                theblock.getRelative(BlockFace.SOUTH).setData(lever.getData());
-                            }
+                            plugin.checkForButtons(theblock, BlockFace.UP, ticks);
+                            plugin.checkForButtons(theblock, BlockFace.NORTH, ticks);
+                            plugin.checkForButtons(theblock, BlockFace.SOUTH, ticks);
+                            plugin.checkForButtons(theblock, BlockFace.EAST, ticks);
+                            plugin.checkForButtons(theblock, BlockFace.WEST, ticks);
                         }
                     }
                 }
