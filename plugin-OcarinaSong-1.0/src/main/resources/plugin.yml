@@ -50,6 +50,18 @@ permissions:
     ocarina.awakening.sign:
             default: op
             description: Allows you to create signs to be triggered by the Sonata of Awakening!
+    ocarina.horses.dismountopponent:
+            default: op
+            description: Allows you to attempt to dismount your opponent!
+    ocarina.epona.call:
+            default: op
+            description: Allows you to call your horse/pet if you have one.
+    ocarina.zelda.tameforriding:
+            default: op
+            description: Allows you to tame creatures to ride and use with Epona's Song!
+            
+            
+            
 commands:
     ocarina:
         description: Checks the list of songs playable on your ocarina!
