@@ -27,7 +27,6 @@ public Server server;
 
     @Override
     public void onSignChange(SignChangeEvent event) {
-        Player player = event.getPlayer();
         if (event.getBlock().getType()==Material.WALL_SIGN){
             if (event.getLine(1).toLowerCase().equals("[awaken]".toLowerCase())||event.getLine(1).toLowerCase().equals("§b[awaken]".toLowerCase())){
                 if (event.getPlayer().hasPermission("ocarina.awakening.sign")){
@@ -40,9 +39,7 @@ public Server server;
                     event.getBlock().setType(Material.AIR);
                     event.setCancelled(true);
                 }
-            }
-            
-            
+            }       
             if (event.getLine(1).toLowerCase().equals("[zelda]".toLowerCase())||event.getLine(1).toLowerCase().equals("§b[zelda]".toLowerCase())){
                 if (event.getPlayer().hasPermission("ocarina.zelda.sign")){
                     event.setLine(1, "§b[Zelda]");
@@ -68,14 +65,6 @@ public Server server;
                     event.setCancelled(true);
                 }
             }
-            
-            
-            
-            
-            
-            
-            
-            
         }
         return;
     }

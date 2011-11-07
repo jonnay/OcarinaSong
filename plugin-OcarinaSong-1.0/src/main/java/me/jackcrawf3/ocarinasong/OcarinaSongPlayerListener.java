@@ -1,8 +1,16 @@
 package me.jackcrawf3.ocarinasong;
 
+import me.jackcrawf3.ocarinasong.misc.KeyCheck;
+import me.jackcrawf3.ocarinasong.songs.SonataOfAwakening;
+import me.jackcrawf3.ocarinasong.songs.SongOfStorms;
+import me.jackcrawf3.ocarinasong.songs.SongOfHealing;
+import me.jackcrawf3.ocarinasong.songs.EponasSong;
+import me.jackcrawf3.ocarinasong.songs.SongOfTime;
+import me.jackcrawf3.ocarinasong.songs.ZeldasLullaby;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,8 +20,21 @@ import org.bukkit.Material;
 import org.bukkit.Note;
 import org.bukkit.Server;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Chicken;
+import org.bukkit.entity.Cow;
+import org.bukkit.entity.CreatureType;
+import org.bukkit.entity.Ghast;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Pig;
+import org.bukkit.entity.PigZombie;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Sheep;
+import org.bukkit.entity.Slime;
+import org.bukkit.entity.Spider;
+import org.bukkit.entity.Wolf;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerListener;
@@ -33,8 +54,6 @@ public class OcarinaSongPlayerListener extends PlayerListener {
 private final OcarinaSong plugin;
 public Map<Player, Integer> YourId = new HashMap<Player, Integer>();
 public Map<Player, Location> MusicBoxBlockLocation = new HashMap<Player, Location>();
-public Map<Player, Material> WhatWasItBefore = new HashMap<Player, Material>();
-public Server server;
 
 
     public OcarinaSongPlayerListener(OcarinaSong plugin) {
@@ -71,10 +90,13 @@ public Server server;
         else if ("awakening".equals(song)){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new SonataOfAwakening(player, plugin, 0),4);
             if (player.hasPermission("ocarina.awakening")){
             }
-        
+        }
+        else if ("epona".equals(song)){Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new EponasSong(player, plugin, 0),4);
+            if (player.hasPermission("ocarina.epona.call")){
+            }
+        }
         
         return;
-    }
     }
     
 
@@ -92,22 +114,13 @@ public Server server;
         }
         if (Action.RIGHT_CLICK_BLOCK != event.getAction() && Action.RIGHT_CLICK_AIR != event.getAction()) return;
      
-        if (Action.RIGHT_CLICK_BLOCK == event.getAction() && event.getClickedBlock().getLocation().equals(MusicBoxBlockLocation.get(player))) {
+        if (Action.RIGHT_CLICK_BLOCK == event.getAction() || Action.LEFT_CLICK_BLOCK == event.getAction() && MusicBoxBlockLocation.containsKey(player) ){
             if (plugin.isPlaying(player)) {
                 event.setCancelled(true);
                 StopPlaying(player);
                 return;
             }
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
         if (Action.RIGHT_CLICK_AIR == event.getAction() || Action.RIGHT_CLICK_BLOCK == event.getAction()){
             if (event.getMaterial() == Material.CLAY_BRICK){
                 if (!player.hasPermission("ocarina")){
@@ -120,9 +133,6 @@ public Server server;
                 else{
                     StopPlaying(player);
                 } 
-
-
-
             }
         }
     return;
@@ -142,24 +152,107 @@ public Server server;
                 if (player.getLocation().getBlock().getRelative(BlockFace.DOWN).isLiquid() || (player.getLocation().getBlock().getRelative(BlockFace.DOWN).isEmpty()))return;
                 plugin.setPlaying(player, true);
                 player.sendMessage(ChatColor.DARK_PURPLE + "You start playing your " + ChatColor.AQUA + "ocarina" + ChatColor.DARK_PURPLE + "!");
-                WhatWasItBefore.put(player, player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType());
                 MusicBoxBlockLocation.put(player, player.getLocation().getBlock().getRelative(BlockFace.DOWN).getLocation());
-                MusicBoxBlockLocation.get(player).getBlock().setType(Material.NOTE_BLOCK);
+                drawNoteblock(MusicBoxBlockLocation.get(player));
                 
                 YourId.put(player,Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new KeyCheck(player,plugin),0,10));
             }
     }
     
+    public void drawNoteblock(Location loc){
+        for (Player player : plugin.getServer().getOnlinePlayers()){
+            byte bite = 0x00;
+            player.sendBlockChange(loc,Material.NOTE_BLOCK,bite);
+        }
+    }
+    public void undrawNoteblock(Location loc){
+        for (Player player : plugin.getServer().getOnlinePlayers()){
+            byte bite = 0x00;
+            player.sendBlockChange(loc,loc.getBlock().getType(), bite);
+        }
+    }
+    
     
     public void StopPlaying(Player player){
-    
-                plugin.setPlaying(player, false);
-                player.sendMessage(ChatColor.DARK_PURPLE + "You stop playing your "+ ChatColor.AQUA + "ocarina" + ChatColor.DARK_PURPLE + "!");
-                if (WhatWasItBefore.get(player)!= Material.NOTE_BLOCK)MusicBoxBlockLocation.get(player).getBlock().setType(WhatWasItBefore.get(player));
-                Bukkit.getServer().getScheduler().cancelTask(YourId.get(player));
-                YourId.remove(player);
-                MusicBoxBlockLocation.remove(player);
-                WhatWasItBefore.remove(player);
+        plugin.setPlaying(player, false);
+        player.sendMessage(ChatColor.DARK_PURPLE + "You stop playing your "+ ChatColor.AQUA + "ocarina" + ChatColor.DARK_PURPLE + "!");
+        undrawNoteblock(MusicBoxBlockLocation.get(player));
+        Bukkit.getServer().getScheduler().cancelTask(YourId.get(player));
+        YourId.remove(player);
+        MusicBoxBlockLocation.remove(player);
+    }
+
+    @Override
+    public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
+        Player player = event.getPlayer();
+        if (plugin.isSomeonesHorse(event.getRightClicked())){
+            if (plugin.isPlayersVehicle(event.getRightClicked(), player)){
+                if (event.getRightClicked().getPassenger() == player){
+                    event.getRightClicked().eject();
+                    player.sendMessage(ChatColor.AQUA + "You dismount your pet!");
+                }
+                else if (event.getRightClicked().getPassenger() == null){
+                    event.getRightClicked().setPassenger(player);
+                    player.sendMessage(ChatColor.AQUA + "You mount your pet!");
+                }
+                else{
+                    if (player.hasPermission("ocarina.horses.dismountopponent")){
+                        Random generator = new Random();
+                        Integer  inty = generator.nextInt(20);
+                        if (inty==3){
+                            player.sendMessage(ChatColor.RED + "You have dismounted the Jockey!");
+                            
+                            if (event.getRightClicked().getPassenger() instanceof Player){
+                                ((Player) event.getRightClicked()).sendMessage(ChatColor.RED + player.getName() + " has dismounted you from your pet!");
+                            }
+                            event.getRightClicked().setPassenger(null);
+                        }
+                        else{
+                            player.sendMessage(ChatColor.RED + "You tug at the Jockey!");
+                        }
+                    }                
+                }
+                event.setCancelled(true);
+            }
+        }
+        else if (event.getRightClicked() instanceof LivingEntity && !(event.getRightClicked() instanceof Player)){
+            LivingEntity entity = (LivingEntity) event.getRightClicked();
+            if (plugin.isTaming.contains(player)){
+                event.setCancelled(true);
+                if (player.getItemInHand().getType()==Material.APPLE){
+                    if (entity instanceof Pig || entity instanceof Sheep || entity instanceof Cow || entity instanceof Chicken){
+                        plugin.registerHorse(player, entity);
+                        player.sendMessage(ChatColor.AQUA + "You tame the majestic creature!");
+                        if (player.getItemInHand().getAmount()!=1)player.getItemInHand().setAmount(player.getItemInHand().getAmount()-1);
+                        else player.getInventory().clear(player.getInventory().getHeldItemSlot());
+                        plugin.isTaming.remove(player);
+                    }
+                    else{
+                        player.sendMessage(ChatColor.RED + "You cannot tame this with an apple!");
+                    }
+                }
+                else if (player.getItemInHand().getType()==Material.BONE){
+                    if (entity instanceof Wolf || entity instanceof PigZombie || entity instanceof Ghast || entity instanceof Spider || entity instanceof Slime){
+                        if (entity.getHealth() < 8){
+                            plugin.registerHorse(player, entity);
+                            player.sendMessage(ChatColor.AQUA + "You tame the wild beast!");
+                            if (player.getItemInHand().getAmount()!=1)player.getItemInHand().setAmount(player.getItemInHand().getAmount()-1);
+                            else player.getInventory().clear(player.getInventory().getHeldItemSlot());
+                            plugin.isTaming.remove(player);
+                        }
+                        else{
+                            player.sendMessage(ChatColor.RED + "It's too strong to be tamed!");
+                        }
+                    }
+                    else{
+                        player.sendMessage(ChatColor.RED + "You cannot tame this with a bone!");
+                    }
+                }
+                else{
+                    player.sendMessage(ChatColor.RED + "You cannot tame this with a " + player.getItemInHand().getType().toString());
+                }
+            }           
+        }
     }
     
     
@@ -190,14 +283,7 @@ public Server server;
         }
         return;
     }
-    
-    
-    
-    
-    
-    
-    
-    }
+}
     
     
     

@@ -2,6 +2,7 @@
 package me.jackcrawf3.ocarinasong;
 
 
+import me.jackcrawf3.ocarinasong.misc.KillButton;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import java.util.Set;
 
 
 import java.util.logging.Level;
+import me.jackcrawf3.ocarinasong.OcNotes;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Instrument;
@@ -29,6 +31,11 @@ import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event;
 import org.bukkit.block.NoteBlock;
 
+import org.bukkit.configuration.Configuration;
+import org.bukkit.entity.Cow;
+import org.bukkit.entity.CreatureType;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import org.bukkit.event.player.PlayerListener;
@@ -41,13 +48,23 @@ import org.bukkit.plugin.Plugin;
  * @author Jackcrawf3
  */
 public class OcarinaSong extends JavaPlugin {
+    public Configuration config;
+    
+    
     private OcarinaSongPlayerListener playerListener = new OcarinaSongPlayerListener(this);
     private OcarinaSongBlockListener blockListener = new OcarinaSongBlockListener(this);
+    private OcarinaSongEntityListener entityListener = new OcarinaSongEntityListener(this);
     public Set<Player> musicians = new HashSet<Player>();
     public Server server;
     public NoteBlock noteblock;
     public Map<Player,List> PlayersNotes = new HashMap<Player,List>();
     public Plugin plugin = this;
+    
+    public Map<Entity,Player> vehicleByEntity = new HashMap<Entity,Player>();
+    public Map<Player,Entity> vehicleByPlayer = new HashMap<Player,Entity>();
+    
+    public Set<Player> isTaming = new HashSet<Player>();
+    
     
     @Override
     public void onEnable()
@@ -58,14 +75,17 @@ public class OcarinaSong extends JavaPlugin {
         getServer().getPluginManager().registerEvent(Event.Type.PLAYER_TOGGLE_SNEAK, playerListener, Priority.Highest, this);
         getServer().getPluginManager().registerEvent(Event.Type.PLAYER_QUIT, playerListener, Priority.Highest, this);
         getServer().getPluginManager().registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Priority.Highest, this);
+        getServer().getPluginManager().registerEvent(Event.Type.PLAYER_INTERACT_ENTITY, playerListener, Priority.Highest, this);
         getServer().getPluginManager().registerEvent(Event.Type.PLAYER_ITEM_HELD, playerListener, Priority.Highest, this);
         getServer().getPluginManager().registerEvent(Event.Type.SIGN_CHANGE, blockListener, Priority.Highest, this);
+        getServer().getPluginManager().registerEvent(Event.Type.ENTITY_TARGET, entityListener, Priority.Highest, this);
+        getServer().getPluginManager().registerEvent(Event.Type.ENTITY_DEATH, entityListener, Priority.Highest, this);
         System.out.println("OcarinaSong has initialized!");
         
         return;
     }
-
-   public boolean isPlaying(Player player) {
+    
+    public boolean isPlaying(Player player) {
         return musicians.contains(player);
     }
     
@@ -194,6 +214,15 @@ public class OcarinaSong extends JavaPlugin {
         musicnote = 0x08;
         SonataOfAwakening.add(musicnote);
         
+        List EponasSong = new LinkedList();
+        EponasSong = new ArrayList();    
+        EponasSong.add(OcNotes.UP.getByte());
+        EponasSong.add(OcNotes.LEFT.getByte());
+        EponasSong.add(OcNotes.RIGHT.getByte());
+        EponasSong.add(OcNotes.UP.getByte());
+        EponasSong.add(OcNotes.LEFT.getByte());
+        EponasSong.add(OcNotes.RIGHT.getByte());
+        
        
         List LastSix = new LinkedList();
         LastSix = new ArrayList();   
@@ -239,9 +268,13 @@ public class OcarinaSong extends JavaPlugin {
             this.playerListener.PlaySong("zelda", player);
             return true;
         }
-        
-        if (SonataOfAwakening.equals(LastSeven)){
-            player.sendMessage(ChatColor.AQUA + "Played " + ChatColor.GRAY + "Sonata of Awakening" + ChatColor.AQUA + "!");
+        else if (EponasSong.equals(LastSix)){
+            player.sendMessage(ChatColor.AQUA + "Played " + ChatColor.GRAY + "Epona's Song" + ChatColor.AQUA + "!");
+            this.playerListener.PlaySong("epona", player);
+            return true;
+        }
+        else if (SonataOfAwakening.equals(LastSeven)){
+            player.sendMessage(ChatColor.AQUA + "Played the " + ChatColor.GRAY + "Sonata of Awakening" + ChatColor.AQUA + "!");
             this.playerListener.PlaySong("awakening", player);
             return true;
         }
@@ -288,6 +321,7 @@ public class OcarinaSong extends JavaPlugin {
     sender.sendMessage(ChatColor.GRAY + "Song of Time:" + ChatColor.YELLOW + " > S V > S V");
     sender.sendMessage(ChatColor.GRAY + "Song of Healing:" + ChatColor.YELLOW + " < > V < > V");
     sender.sendMessage(ChatColor.GRAY + "Zelda's Lullaby:" + ChatColor.YELLOW + " < ^ > < ^ >");
+    sender.sendMessage(ChatColor.GRAY + "Epona's Song:" + ChatColor.YELLOW + " ^ < > ^ < >");
     sender.sendMessage(ChatColor.GRAY + "Sonata of Awakening:" + ChatColor.YELLOW + " ^ < ^ < S > S");
     return;
     }
@@ -332,7 +366,64 @@ public class OcarinaSong extends JavaPlugin {
     return;
     }
     
+    public Entity generateHorse(Location loc, Player player, CreatureType type){
+        if (vehicleByPlayer.containsKey(player)){
+            vehicleByPlayer.get(player).remove();
+            vehicleByPlayer.remove(player);
+        }
+        LivingEntity horse = null;
+        
+        if (loc!=null)horse = player.getWorld().spawnCreature(loc, type);
+        else horse = player.getWorld().spawnCreature(player.getLocation().add(5,0,5), type);
+        
+        
+        vehicleByPlayer.put(player, horse);
+        vehicleByEntity.put(horse,player);
+               
+        return horse;
+    }
     
+    public void registerHorse(Player player, Entity entity){
+        if (vehicleByPlayer.containsKey(player)){
+            vehicleByPlayer.get(player).remove();
+            vehicleByPlayer.remove(player);
+        }
+        
+        vehicleByPlayer.put(player, entity);
+        vehicleByEntity.put(entity,player);
+        
+    }
+    
+    public Entity getHorse(Player player){
+        if (vehicleByPlayer.containsKey(player))return vehicleByPlayer.get(player);
+        return null;
+    }
+    
+    public Player getRider(Entity entity){
+        if (vehicleByEntity.containsKey(entity))return vehicleByEntity.get(entity);
+        return null;
+    }
+    
+    public boolean isSomeonesHorse(Entity entity){
+        if (vehicleByEntity.containsKey(entity)||vehicleByPlayer.containsValue(entity))return true;
+        return false;
+    }
+    
+    public boolean isPlayersVehicle(Entity entity, Player player){
+        if (vehicleByEntity.containsKey(entity)){
+            if (vehicleByEntity.get(entity)==player){
+                return true;
+            }
+        }
+
+        if (vehicleByPlayer.containsKey(player)){
+            if (vehicleByPlayer.get(player)==entity){
+                return true;
+            }
+        }
+        
+        return false;
+    }
 
     @Override
     public void onDisable()
